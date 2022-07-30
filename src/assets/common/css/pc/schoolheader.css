@@ -1,0 +1,73 @@
+.schoolbanner {
+    width: 100%;
+    height: 90px;
+    background-color: #fff;
+}
+
+.schoolbanners {
+  width: 1200px;
+  height: 90px;
+  margin: 0 auto;
+  line-height: 90px;
+}
+
+.school-logo{
+width: 105px;
+height: 30px;
+margin-right: 31px;
+}
+
+.jyq-logo{
+  width: 105px;
+  height: 30px;
+  margin-right: 31px;
+}
+
+/* 添加双选会 */
+.schoolbanneradd {
+  width: 100%;
+  height: 144px;
+  background-color: #fff;
+}
+
+.schoolbanneradds {
+    height: 139px;
+    width: 1200px;
+    margin: 0 auto;
+}
+.schoolbanneradds .code-img {
+  margin-right: 11px;
+  margin-top: 27px;
+  width: 93px;
+  height: 85px;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center center;
+  padding-left: 2px;
+  padding-top: 2px;
+}
+.schoolbanneradds .code-img img {
+  width: 81px;
+  height: 81px;
+}
+.schoolbanneradds  .code .code-tip.red {
+  font-size: 14px;
+  margin-top: 51px;
+  font-weight: 400;
+  color: #FF4743;
+  line-height: 20px;
+}
+.schoolbanneradds  .code .code-tip {
+  margin-bottom: 5px;
+  display: inline-block;
+  white-space: nowrap;
+  font-size: 14px;
+  font-weight: 400;
+  color: #666666;
+  line-height: 20px;
+}
+
+.schoolbanneradds .logo {
+  height: 46px;
+  margin: 46px 61px 0 0;
+}

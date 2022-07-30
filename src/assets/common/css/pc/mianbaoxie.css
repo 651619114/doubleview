@@ -1,0 +1,70 @@
+.ky-href {
+  border-top: 1px solid #ebebeb;
+  height: 50px;
+  background: #ffffff;
+  box-shadow: 0px 6px 10px 0px rgb(237 237 237 / 50%);
+}
+.ky-href .w {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+.ky-href .w a {
+  margin: auto 0;
+  font-size: 16px;
+  line-height: 18px;
+  padding-right: 10px;
+  margin: 0 10px 0 0;
+  font-weight: 600;
+  color: #333333;
+}
+.ky-href .w img {
+  width: 16px;
+  display: block;
+  margin-right: 6px;
+}
+
+.el-breadcrumb {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.el-breadcrumb__item:last-child .el-breadcrumb__inner,
+.el-breadcrumb__item:last-child .el-breadcrumb__inner a,
+.el-breadcrumb__item:last-child .el-breadcrumb__inner a:hover,
+.el-breadcrumb__item:last-child .el-breadcrumb__inner:hover {
+  cursor: pointer;
+  font-weight: 400;
+  color: #ff4c3f !important;
+}
+
+.el-breadcrumb__inner a,
+.el-breadcrumb__inner.is-link {
+  cursor: pointer;
+  font-weight: 400;
+  color: #333333 !important;
+}
+
+/* 表格中的面包屑 */
+.tabletop {
+  height: 56px;
+  background: #fafafa;
+  border-bottom: 1px solid #EBEBEB;
+}
+.tabletop .w {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding-left: 10px;
+}
+.tabletop .w a {
+  margin: auto 0;
+  font-size: 16px;
+  line-height: 18px;
+  padding-right: 10px;
+  margin: 0 10px 0 0;
+  font-weight: 600;
+  color: #333333;
+}
+
+

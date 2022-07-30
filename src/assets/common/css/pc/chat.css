@@ -1,0 +1,139 @@
+.videolist {
+  width: 100%;
+  height: 488px;
+}
+.videochat {
+  display: block;
+  width: 100%;
+  height: 488px;
+  object-fit: cover;
+  margin-left: -1px;
+}
+
+.videolist .top_bg {
+  position: absolute;
+  width: 65%;
+  height: 488px;
+  background: rgba(51, 51, 51, 0.3);
+  top: 0;
+  padding-top: 200px;
+  text-align: center;
+  opacity: 0;
+}
+.videolist .top_bg img {
+  width: 40px;
+  height: 40px;
+}
+.videolist:hover .top_bg {
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+
+
+.chatist {
+    background: #fff;
+    width: 100%;
+    height: 488px;
+}
+
+.chathu {
+  font-size: 14px;
+  font-weight: normal;
+  color: #333333;
+  border-bottom: 1px solid #EBEBEB; 
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.chatpeople {
+  padding: 20px;
+  overflow-y: auto;
+  height: 370px;
+}
+.chatpeople li{
+  margin-bottom: 35px;
+  }
+
+
+.chatone {
+  display: flex;
+  align-items: center;
+
+}
+.chatone img{
+  width: 32px;
+  height: 32px;
+}
+.chatonename {
+  width: 180px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-break: break-all;
+  white-space: nowrap;
+  margin-left: 5px;
+}
+
+.chatone span{
+  font-size: 14px;
+  font-weight: 400;
+  color: #666666;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-break: break-all;
+  white-space: nowrap;
+}
+
+.chattwo {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333333;
+  margin-top: 6px;
+  margin-bottom: 4px;
+  word-break: break-all;
+}
+
+.chatthree {
+ display: flex;
+ align-items: center;
+ float: right;
+ word-break: break-all;
+}
+
+.chatthree img{
+  width: 10px;
+  height: 10px;
+}
+.chatthree span{
+  font-size: 14px;
+  font-weight: 400;
+  color: #666666;
+}
+
+.chatinput {
+  display: flex;
+  justify-content: center;
+
+}
+.submitimput {
+  width: 230px;
+  height: 32px;
+  border-radius: 4px 0px 0px 4px;
+  opacity: 1;
+  border-right: none;
+  filter: blur(undefinedpx);
+  border: 1px solid #EBEBEB;
+}
+.submit {
+  width: 68px;
+  height: 32px;
+  background: linear-gradient(90deg, #FF4643 0%, #FE6530 100%);
+  border-radius: 0px 4px 4px 0px;
+  opacity: 1;
+  filter: blur(undefinedpx);
+  font-size: 14px;
+  font-weight: 500;
+  color: #FFFFFF;
+  border: 1px solid #FF4643;
+  border-left: none;
+}

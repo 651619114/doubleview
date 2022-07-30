@@ -1,0 +1,74 @@
+/* reset css */
+
+html, body, div, p, input, ul, li, ol, table, textarea, header, footer, img, header, footer, section, button, select, hr, a, nav, form {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+input, select, button {
+    outline: none;
+    background: transparent;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+}
+
+input::placeholder {
+    color: #ccc;
+}
+
+button {
+    cursor: pointer;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+    cursor: pointer;
+}
+
+a:hover {
+    color: #FE4841;
+    text-decoration: none;
+}
+
+.clearfix::after, .clearfix::before {
+    content: '';
+    display: block;
+    height: 0;
+    line-height: 0;
+    clear: both;
+}
+
+.clearfix::after, .clearfix::before {
+    content: '';
+    display: block;
+    height: 0;
+    line-height: 0;
+    clear: both;
+}
+
+body {
+    background-color: #fff;
+    color: #333;
+    margin: 0 auto;
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+}
+
+hr {
+    height: 1px;
+    width: 100%;
+    background: #F5F5F5;
+}
+.fr{
+    float: right;
+}

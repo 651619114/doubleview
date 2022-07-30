@@ -1,0 +1,155 @@
+/* reset css */
+
+html, body, div, p, input, ul, li, ol, table, textarea, header, footer, img, header, footer, section, button, select, hr, a {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    box-sizing: border-box;
+}
+
+input, select, button {
+    outline: none;
+    background: transparent;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+}
+
+button {
+    cursor: pointer;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+    cursor: pointer;
+}
+
+a:hover {
+    color: #FE4841;
+    text-decoration: none;
+}
+
+.clearfix::after, .clearfix::before {
+    content: '';
+    display: block;
+    height: 0;
+    line-height: 0;
+    clear: both;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.hide {
+    display: none;
+}
+
+.mt_60 {
+    margin-top: 60px;
+}
+
+.mt_50 {
+    margin-top: 50px;
+}
+
+.mt_30 {
+    margin-top: 30px;
+}
+
+.mt_20 {
+    margin-top: 20px;
+}
+
+.mt_10 {
+    margin-top: 10px;
+}
+
+.mt_15 {
+    margin-top: 15px;
+}
+
+.mt_4 {
+    margin-top: 4px;
+}
+
+.mt_40 {
+    margin-top: 40px;
+}
+
+.ml_25 {
+    margin-left: 25px;
+}
+
+.font_18 {
+    font-size: 18px;
+}
+
+.font_14 {
+    font-size: 14px;
+}
+
+.font_16 {
+    font-size: 16px;
+}
+
+.font_12 {
+    font-size: 12px;
+}
+
+.t_c {
+    text-align: center;
+}
+
+@keyframes opacity {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+body {
+    font-family: '微软雅黑', Microsoft YaHei, Source Han Sans CN;
+    background-color: #fff;
+    color: #333;
+    margin: 0 auto;
+    width: 100%;
+    min-width: 1200px;
+    min-height: 100vh;
+    position: relative;
+    /* padding-bottom: 277px; */
+}
+.w{
+    width: 1200px;
+    margin: 0 auto;
+}
+::-webkit-scrollbar {
+    width: 16px;
+    height: 16px;
+    background-color: #F5F5F5;
+  }
+  /*定义滚动条轨道 内阴影+圆角*/
+  ::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(204, 201, 201, 0.3);
+    border-radius: 10px;
+    background-color: #fff;
+  }
+  /*定义滑块 内阴影+圆角*/
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(170, 165, 165, 0.3);
+    background-color: #eee;
+  }
+  

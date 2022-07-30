@@ -1,0 +1,309 @@
+/* 头部 */
+.header {
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    /* background: #32373E; */
+    background: linear-gradient(90deg, #FF4643 0%, #FE6530 100%);
+    color: #fff;
+}
+
+/* 添加学校名字 */
+.school-title-school {
+  color: #FFFFFF;
+  font-size: 16px; 
+  margin-left: 10px; 
+}
+    
+.school-title{
+  color: #FFFFFF;
+  font-size: 17px; 
+}
+
+.left-name{
+    float: left;
+}
+
+.school-name{
+    color: #FFFFFF;
+    font-size: 16px;
+}
+
+.rlogo{
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.username{
+    color: #ffffff;
+    font-size: 16px;
+    margin-right: 20px;
+}
+
+.vertical-bar{
+color: #ffffff;
+margin:0 8px;
+}
+
+.logout-btn{
+    background-color: #fff;
+    color: #FF4743;
+    padding: 5px 12px;
+    border-radius: 15px;
+}
+
+.header-con {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.header-con .login-btn {
+    color: #fff;
+    display: inline-block;
+    font-size: 16px;
+    width: 70px;
+    text-align: center;
+    height: 34px;
+    line-height: 34px;
+    border-radius: 20px;
+    /* border: 1px solid #FE4841; */
+    margin-left: 20px;
+    background: rgba(255, 255, 255, 0.14);
+}
+
+.header-con .login-btn:hover {
+    color: #FF4743;
+    background: #FFFFFF;
+}
+
+.header-con .logo {
+    font-size: 20px;
+    color: #fff;
+    margin-right: 30px;
+}
+
+.header-con .left span {
+    margin-right: 30px;
+}
+
+.header-con .citychange {
+    padding-left: 24px;
+    background: url(../../img/pc/icon_locate.png);
+    background-repeat: no-repeat;
+    background-size: 20px auto;
+    background-position: center left;
+}
+
+.header-con .downapp {
+    font-size: 14px;
+    padding-left: 24px;
+    background: url(../../img/pc/icon_app.png);
+    background-repeat: no-repeat;
+    background-size: 16px auto;
+    background-position: center left;
+}
+
+/* 导航栏 */
+.nav {
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+    background: #fff;
+    height: 50px;
+    padding-top: 15px;
+}
+
+.nav ul {
+    width: 1200px;
+    margin: 0 auto;
+    white-space: nowrap;
+}
+
+.nav li {
+    display: inline-block;
+    font-size: 18px;
+    margin-right: 44px;
+}
+
+.nav li:last-child {
+    margin: 0;
+}
+
+.nav li a {
+    display: block;
+    padding: 0 4px 10px;
+}
+
+.nav li a.active {
+    border-bottom: 4px solid #FE4841;
+}
+
+.nav li a:hover {
+    border-bottom: 4px solid #FE4841;
+}
+
+/* 底部 */
+.footer-bg{
+    margin-top: 20px;
+    background: #FFFFFF;
+}
+.footer {						 
+    width: 1200px;				   
+    padding-top: 30px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.footer-item {		
+     display: inline-block;
+     vertical-align: top;
+    text-align: left;
+    /*float: left;*/
+}
+
+.footer-item-product {
+    width: 200px;
+					 
+}
+
+.footer-item-aboutus {					
+    width: 158px;						   
+}
+
+.footer-item-business {
+    width: 220px;
+					 
+}
+
+.footer-item-tech {
+    width: 202px;
+}
+
+.footer-item-content {
+    width: 246px;
+}
+
+.footer-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #333333;
+    line-height: 20px;
+    margin-bottom: 20px;
+}
+
+.footer-item .item-line {
+    font-size: 12px;
+    color: #666666;
+    line-height: 28px;
+    display: block;
+}
+
+.footer-item-code {
+    text-align: center;
+}
+
+.footer-code {
+    width: 92px;
+    height: 92px;
+    border: 1px solid #EBEBEB;
+}
+
+.footer-bottom {
+    width: 1200px;
+    font-size: 12px;
+    color: #333333;
+    line-height: 77px;
+    border-top: 1px solid #EBEBEB;
+    text-align: left;
+    margin: 21px auto 0;
+}
+.footer-bottom img{
+    width: 12px;
+    vertical-align: middle;
+    margin-bottom: 2px;
+}
+
+.pagination {
+    /* clear: both; */
+    margin-top: 80px;
+}
+
+/* .pagination a {
+    font-size: 14px;
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    display: inline-block;
+    background: #F4F4F5;
+    border-radius: 4px;
+    margin-right: 15px;
+    font-weight: 700;
+    vertical-align: middle;
+}
+
+.pagination a i {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.pagination input {
+    width: 50px;
+    height: 30px;
+    border: 1px solid #CCCCCC;
+    border-radius: 6px;
+    font-weight: 500;
+    margin: 0 12px;
+}
+
+.pagination a:hover, .pagination a.active {
+    background: #F44949;
+    color: #fff;
+}
+
+.pagination .total {
+    margin-right: 15px;
+} */
+
+/* 自定义分页部分 */
+.ele-page{
+  margin:0 auto;
+  margin-top: 20px;
+  margin-bottom: 35px;
+  display: table;
+}
+.el-pagination.is-background .el-pager li:not(.is-disabled).is-active{
+  background-color: #FF4743;
+  color: #FFFFFF;
+}
+.el-pagination.is-background .el-pager li{
+  background: #FFFFFF;
+  color: #333333;
+  border-radius: 4px 4px 4px 4px;
+  width: 34px;
+  height: 34px;
+  margin-right: 7px;
+  margin-left: 7px;
+}
+.el-pagination.is-background .btn-prev:disabled{
+  background: #FFFFFF;
+  color: #333333;
+}
+.el-pagination{
+  --el-pagination-font-size: 16px;
+  background:  #F7F6F7;
+}
+.el-pagination.is-background .btn-next, .el-pagination.is-background .btn-prev, .el-pagination.is-background .el-pager li{
+   background-color: #FFFFFF;
+}
+
+/* 企业端头部 */
+.enter-title{
+color: #FFFFFF;
+font-size: 18px;
+}
+
+.company-names{
+    color: #FFFFFF;
+    font-size: 16px;
+}

@@ -1,0 +1,404 @@
+.main {
+margin-top: 20px;
+}
+.ky-href {
+  border-top: 1px solid #EBEBEB;
+  height: 50px;
+  background: #FFFFFF;
+  box-shadow: 0px 6px 10px 0px rgb(237 237 237 / 50%);
+}
+.ky-href .w {
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+.ky-href .w img {
+  margin-right: 6px;
+  height: 16px;
+}
+.ky-href .w a {
+  margin: auto 0;
+}
+
+.ky-href .w a p {
+  font-size: 16px;
+  height: 16px;
+  line-height: 16px;
+  padding-right: 5px;
+  margin: 0 5px auto 0;
+  font-weight: 600;
+  color: #333333;
+}
+.ky-href .w a:last-child p {
+  border: 0;
+  color: #FF4743;
+}
+
+/* 视频播放 */
+.video_bofang {
+  padding: 20px;
+  width: 921px;
+  height: 287px;
+  background: #FFFFFF;
+  display: flex;
+  
+}
+.video_container {
+    width: 426px;
+    height: 247px;
+  }
+.video_container video {
+    width: 426px;
+    height: 247px;
+    display: block;
+  }
+
+  .video_neirong {
+    width: 435px;
+    margin-left: 20px;
+  }
+  .video_neirong p {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333333;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:2; 
+  }
+
+  .video_look {
+    display: flex;
+    margin-top: 20px;
+
+  }
+  .video_look .video_lookp{
+    font-size: 14px;
+    font-weight: 400;
+    color: #666666;
+    width: 150px !important;
+  }
+
+  .video_look .video_lookp img{
+    width: 14px;
+    height: 13px;
+    margin-right: 7px;
+    margin-bottom: -1px;
+  }
+  .video_button {
+    width: 135px;
+    height: 38px;
+    background: linear-gradient(90deg, #FF4643 0%, #FE6530 100%);
+    border-radius: 4px 4px 4px 4px;
+    opacity: 1;
+    font-size: 14px;
+    font-weight: 400;
+    color: #FFFFFF;
+    padding: 5px 25px;
+    margin-top: 90px;
+  }
+
+
+  /* 右侧部分 */
+  .right {
+    width: 259px;
+    margin-bottom: 20px;
+  }
+  .right  .righttt {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333333;
+    line-height: 22px;
+    height: 50px;
+    background: #FFFFFF;
+    padding-left: 17.5px;
+    padding-top: 14px;
+    padding-right: 20px;
+  }
+  
+  .right .righttt .leftline {
+    display: inline-block;
+    width: 3px;
+    height: 16px;
+    background: linear-gradient(90deg, #FF4643 0%, #FE6530 100%);
+    border-radius: 2px;
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-bottom: 3px;
+  }
+  
+.rightlists{
+    height: 629px;
+    background: #FFFFFF;
+    padding-bottom: 20px;
+    margin-top: 10px;
+  }
+
+.rightlists li {
+    float: left;
+    width: 219px;
+    margin-left: 20px !important;
+    border: 1px solid #EBEBEB;
+    margin-top: 20px !important;
+  }
+.rightlists li .list {
+    display: block;
+    padding-bottom: 17px;
+    position: relative;
+  }
+  .rightlists li .list .video {
+    display: block;
+    width: 219px;
+    height: 121px;
+    object-fit: cover;
+    margin-left: -1px;
+  }
+  .rightlists li .list .top_bg {
+    position: absolute;
+    width: 100%;
+    height: 121px;
+    background: rgba(51, 51, 51, 0.3);
+    top: 0;
+    text-align: center;
+    padding-top: 40px;
+    opacity: 0;
+    left: 0px;
+
+  }
+  .rightlists li .list .top_bg img {
+    width: 20px;
+    height: 20px;
+  }
+  .rightlists li .list:hover .top_bg {
+    opacity: 1;
+    transition: opacity 0.3s;
+  }
+  .rightlists li .list .title {
+    font-size: 15px;
+    font-weight: 500;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:2; 
+    margin-top: 10px !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+
+/* 标题 */
+  .video_list-title {
+    padding: 14px 23px;
+    width: 921px;
+    height: 50px;
+    background: #FFFFFF;
+    margin-top: 20px;
+    display: flex;
+  }
+  .video_list-title .ready-choose span {
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333333;
+    margin-right: 88px;
+}
+
+.video_list-title .ready-choose span:hover{
+  cursor : pointer;
+}
+
+.visited span{
+  color: #FF4643 !important;
+}
+
+  /* 课程介绍 */
+  .classkonw{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 921px;
+    height: 312px;
+    /* height: auto; */
+    background: #FFFFFF; 
+    padding: 20px 20px;
+    justify-content: space-between;
+    overflow-y: auto;
+  }
+
+  /* 讲师介绍 */
+  .teachkonw{
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 921px;
+    height: 312px;
+    /* height: auto; */
+    background: #FFFFFF; 
+    padding: 20px 20px;
+    overflow-y: auto;
+  }
+  .teachkonw img{
+    width: 153px;
+    height: 272px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+  }
+
+  /* 课程目录 */
+  .course {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 921px;
+    /* height: 312px; */
+    height: auto;
+    background: #FFFFFF; 
+    /* padding: 20px 20px; */
+    /* overflow-y: auto; */
+  }
+
+
+    /* 课程目录 */
+    .video_content {
+      width: 279px;
+      position: relative;
+    }
+  
+    .video_content .chapter {
+      padding: 0 20px;
+      line-height: 40px;
+      cursor: pointer;
+      margin-top: 20px;
+      margin-left: 40px
+    }
+    .video_content .chapter img {
+      width: 12px;
+      transform: rotate(90deg);
+      transition-duration: 0.3s;
+      margin-top: 17px;
+    }
+    
+    .video_content .chapter.active img {
+      transform: rotate(270deg);
+      transition-duration: 0.3s;
+    }
+    .cata-lists {
+      position: relative;
+      padding-bottom: 10px;
+    }
+    .cata-lists .list a {
+      display: block;
+      line-height: 45px;
+      padding: 0 48px;
+      font-size: 0;
+      position: relative;
+      background: url(../../video/img/weibofang.png) right no-repeat;
+      background-size: 14px 14px;
+      margin-right: 30px;
+      background-position: 97%;
+    }
+    .cata-lists .list a h4 {
+      font-size: 14px;
+      font-weight: 400;
+      color: #666;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      padding-left: 50px;
+    }
+    .cata-lists .list a::before {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 9px;
+      height: 9px;
+      border: 1px solid #FF4643;
+      left: 27px;
+      top: 18px;
+      border-radius: 50%;
+      box-sizing: border-box;
+      margin-left: 44px;
+    }
+    .cata-lists .list a:hover,
+    .cata-lists .list.active a {
+      z-index: 111;
+      background: #FFFAFA url(../../video/img/bofang.png) right no-repeat;
+      background-size: 14px 14px;
+      background-position: 97%;
+      align-items: center;
+    }
+    .cata-lists .list a:hover h4,
+    .cata-lists .list .active a h4 {
+      color: #FF4643;
+    }
+    .cata-lists .list a:hover::before,
+    .cata-lists .list.active a::before {
+      background-color: #FF4643;
+    }
+    .cata-lists::before {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 1px;
+      background: #FFE3EA;
+      top: 11px;
+      bottom: 11px;
+      left: 75px;
+    }
+    .chapter + .cata-lists {
+      display: none;
+    }
+    .chapter.active + .cata-lists {
+      display: block;
+    }
+
+  /* 参考资料 */
+  .reference {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 921px;
+    height: 312px;
+    background: #FFFFFF;
+    overflow-y: auto;
+  }
+  .reference_list {
+    margin-top: 20px;
+    height: 36px;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .reference_list img{
+       width: 14px;
+       height: 14px;
+       margin-right: 5px;
+       margin-bottom: -2px;
+  }
+  .reference .reference_list button {
+    width: 43px;
+    height: 19px;
+    background: linear-gradient(90deg, #FF4643 0%, #FE6530 100%);
+    border-radius: 2px 2px 2px 2px;
+    opacity: 1;
+    font-size: 12px;
+    font-weight: 400;
+    color: #FFFFFF;
+  }
+
+  .reference .reference_list:hover{
+    height: 36px;
+    background: #FFFAFA;
+    border-radius: 0px 0px 0px 0px;
+    opacity: 1;
+  }
+
+  
+  .reference .reference_list  p {
+    font-size: 14px;
+    font-weight: 400;
+    color: #333333;
+  }
+  .reference .reference_list  p span{
+   margin-right: 10px;
+  }
