@@ -3,7 +3,8 @@
   <div class="baycheck">
     <div class="maincheck">
       <div class="view-process">
-        <div class="cont"> v
+        <div class="cont">
+          v
           <div class="step2-cont">
             <div class="title_jiance">
               <!-- <img src="@/views/pc/img/cloudDouble/jiance1.png" /> -->
@@ -16,13 +17,13 @@
                 class="select middle"
                 v-model="audioDevice"
                 placeholder="请选择"
-                @change="selectedDevice('audioDevice')"
               >
                 <el-option
                   v-for="item in audioDevices"
                   :key="item.deviceId"
                   :label="item.label"
                   :value="item.deviceId"
+                  @click.native="changeAudio(item)"
                 >
                 </el-option>
               </el-select>
@@ -39,7 +40,7 @@
                 class="select middle"
                 v-model="videoDevice"
                 placeholder="请选择"
-                @change="selectedDevice('videoDevice')"
+                @change="changeVideo"
               >
                 <el-option
                   v-for="item in videoDevices"
@@ -50,7 +51,7 @@
                 </el-option>
               </el-select>
             </div>
-            <div class="title_jiance ">
+            <div class="title_jiance">
               <!-- <img src="@/views/pc/img/cloudDouble/jiance2.png" /> -->
               <div class="title_neirong jiancejieguo">检测结果</div>
             </div>
@@ -138,7 +139,6 @@
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -180,6 +180,16 @@ export default {
   },
   methods: {
     toWait() {
+      if (this.audioDevice == "" || this.audioDevice == null) {
+        this.$message("暂无可用的音频设备");
+        return;
+      }
+      if (this.videoDevice == "" || this.videoDevice == null) {
+        this.$message("暂无可用的视频设备");
+        return;
+      }
+      localStorage.setItem("selectedMicrophoneId", this.audioDevice);
+      localStorage.setItem("selectedCameraId", this.videoDevice);
       this.$router.push({
         name: "video-wait",
         query: {
@@ -194,7 +204,7 @@ export default {
     async agoraGetDevice() {
       var that = this;
       // 获取所有音视频设备
-      AgoraRTC.getDevices().then((devices) => {
+      AgoraRTC.getDevices(true).then((devices) => {
         that.audioDevices = devices.filter(function (device) {
           return device.kind === "audioinput";
         });
@@ -202,29 +212,38 @@ export default {
           return device.kind === "videoinput";
         });
         // 默认选中第一项
+
         that.audioDevice = that.audioDevices[0].deviceId;
         that.videoDevice = that.videoDevices[0].deviceId;
-        localStorage.setItem("selectedMicrophoneId", that.audioDevice);
-        localStorage.setItem("selectedCameraId", that.videoDevice);
+
+        if (that.audioDevice == "" || that.audioDevice == null) {
+          that.$message("暂无可用的音频设备");
+        }
+        if (that.videoDevice == "" || that.videoDevice == null) {
+          that.$message("暂无可用的视频设备");
+        }
       });
     },
 
     // 存储选中值
-    selectedDevice(type) {
-      if (type == "audioDevice") {
-        localStorage.setItem("selectedMicrophoneId", this[type]);
-      } else if (type == "videoDevice") {
-        localStorage.setItem("selectedCameraId", this[type]);
-      }
-      console.log(
-        localStorage.getItem("selectedMicrophoneId"),
-        localStorage.getItem("selectedCameraId")
-      );
+    changeAudio(item) {
+      this.audioDevice = item.deviceId;
+    },
+    changeVideo(item) {
+      this.videoDevice = item.deviceId;
     },
 
     // 开始检测设备
     async agoraDeviceCheck() {
       var that = this;
+      if (that.audioDevice == "" || that.audioDevice == null) {
+        that.$message("暂无可用的音频设备");
+        return;
+      }
+      if (that.videoDevice == "" || that.videoDevice == null) {
+        that.$message("暂无可用的视频设备");
+        return;
+      }
 
       if (that.step2Disabled) {
         that.$message("您正在测试中");
@@ -237,10 +256,10 @@ export default {
         .then((devices) => {
           return Promise.all([
             AgoraRTC.createCameraVideoTrack({
-              cameraId: localStorage.getItem("selectedCameraId"),
+              cameraId: that.videoDevice,
             }),
             AgoraRTC.createMicrophoneAudioTrack({
-              microphoneId: localStorage.getItem("selectedMicrophoneId"),
+              microphoneId: that.audioDevice,
             }),
           ]);
         })
@@ -471,7 +490,6 @@ export default {
   margin-left: -70px;
 }
 
-
 .view-process .step2-cont .title_jiance img {
   z-index: 1000;
   width: 52px;
@@ -488,7 +506,7 @@ export default {
 }
 /* 检测结果 */
 .view-process .step2-cont .title_jiance .jiancejieguo {
-    width: 158px;
+  width: 158px;
   height: 40px;
 }
 /* 视频显示结果 */
@@ -546,8 +564,8 @@ export default {
   padding: 0 22px;
   height: 34px;
   line-height: 34px;
-  background: linear-gradient(90deg, #FF4643 0%, #FE6530 100%);
-  border: 1px solid #FF4643;
+  background: linear-gradient(90deg, #ff4643 0%, #fe6530 100%);
+  border: 1px solid #ff4643;
   border-radius: 5px;
   color: #fff;
   font-weight: 500;
@@ -634,7 +652,7 @@ export default {
   height: 41px;
   text-align: center;
   line-height: 41px;
-  background: linear-gradient(90deg, #FF4643 0%, #FE6530 100%);
+  background: linear-gradient(90deg, #ff4643 0%, #fe6530 100%);
   font-size: 18px;
   font-weight: 500;
   color: #ffffff;

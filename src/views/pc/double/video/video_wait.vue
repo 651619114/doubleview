@@ -668,6 +668,16 @@ export default {
         if (this.role == "teach") {
           this.stuList = msgData.data;
         }
+      } else if (msgData.type == "end") {
+        //服务器判定是老师 主动推送 成员列表
+        if (this.role == "stu") {
+          this.$alert(msgData.data.msg, "提示", {
+            confirmButtonText: "确定",
+            callback: (action) => {
+              window.location.href = "http://127.0.0.1:8080/";
+            },
+          });
+        }
       } else if (msgData.type == "groupPush") {
         let msg = [
           {
@@ -677,7 +687,6 @@ export default {
             ctime: new Date().toLocaleString(), //显示当前消息的发送时间
           },
         ];
-        console.log(msg);
         this.dataArray = this.dataArray.concat(msg); //直接合并
         this.$refs.child.scrollToBottom();
       }
@@ -708,7 +717,6 @@ export default {
         //这里很关键，因为连接失败之后之后会相继触发 连接关闭，不然会连接上两个 WebSocket
         return;
       }
-      console.log(123123123);
       this.lockReconnect = true;
       this.reconnectData && clearTimeout(this.reconnectData);
       this.reconnectData = setTimeout(() => {
@@ -907,12 +915,18 @@ export default {
     stopStu() {
       var that = this;
       that.agoraLeaveCall();
+      that.websocketsend({
+        type: "end",
+        ud: that.ud,
+        gd: that.gd,
+        role: that.role,
+      });
       if (that.role == "stu") {
         that.recoder("end");
         that.status = "wait";
         that.waitStatus = "end";
       } else {
-        that.$router.go(0);
+        window.location.href = "http://127.0.0.1:8080/";
       }
     },
 
@@ -973,7 +987,7 @@ export default {
 
       // 订阅当前网络质量
       that.rtc.client.on("network-quality", (stats) => {
-        console.log(stats)
+        console.log(stats);
         console.log("downlinkNetworkQuality", stats.downlinkNetworkQuality);
         console.log("uplinkNetworkQuality", stats.uplinkNetworkQuality);
         if (stats.downlinkNetworkQuality <= stats.uplinkNetworkQuality) {
@@ -1031,6 +1045,7 @@ export default {
       }
       await that.rtc.localAudioTrack.setEnabled(that.mkfon);
     },
+
     // // 暂时停用启用摄像头采集
     async agoraCameraSet() {
       var that = this;
