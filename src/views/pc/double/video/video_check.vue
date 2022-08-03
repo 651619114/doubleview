@@ -7,8 +7,8 @@
           v
           <div class="step2-cont">
             <div class="title_jiance">
-              <!-- <img src="@/views/pc/img/cloudDouble/jiance1.png" /> -->
-              <div class="title_neirong">检测内容（第一步</div>
+              <img src="@/views/pc/double/img/jiance1.png" />
+              <div class="title_neirong">检测内容（第一步）</div>
             </div>
             <!-- <div class="title">检测内容（第一步）{{ ud }}</div> -->
             <div class="item">
@@ -51,8 +51,9 @@
                 </el-option>
               </el-select>
             </div>
-            <div class="title_jiance">
-              <!-- <img src="@/views/pc/img/cloudDouble/jiance2.png" /> -->
+
+            <div class="title_jiance ">
+              <img src="@/views/pc/double/img/jiance2.png" />
               <div class="title_neirong jiancejieguo">检测结果</div>
             </div>
             <!-- <div class="title">检测结果</div> -->
@@ -121,7 +122,7 @@
               </p>
             </div>
             <div class="title_jiance">
-              <!-- <img src="@/views/pc/img/cloudDouble/jiance3.png" /> -->
+              <img src="@/views/pc/double/img/jiance3.png" />
               <div class="title_neirong shipjieguo">视频显示结果</div>
             </div>
             <!-- <div class="title">视频显示结果</div> -->
