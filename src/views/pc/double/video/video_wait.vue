@@ -337,7 +337,10 @@
           </div>
         </div>
       </div>
-      <button @click="changeclose()">开关</button>
+      <button @click="changeclose()">聊天开关</button>
+      <button @click="changeallaudio()">全局静音开关</button>
+      <button @click="changeaudio()">静音开关</button>
+      <button @click="changevideo()">视频开关</button>
     </div>
   </div>
 </template>
@@ -409,6 +412,9 @@ export default {
       status: "loading",
       waitstatus: null,
       isclose: true,
+      isaudio: true,
+      isallaudio: true,
+      isvideo: true,
     };
   },
   props: {
@@ -1138,6 +1144,33 @@ export default {
         ud: this.ud,
         gd: this.gd,
       });
+    },
+
+    changeallaudio() {
+      this.isallaudio = !this.isallaudio;
+      const remoteUser = this.rtc.client.remoteUsers;
+
+      if (this.isallaudio) {
+        remoteUser[0].audioTrack.setVolume(100);
+        this.rtc.localAudioTrack.setVolume(100);
+      } else {
+        remoteUser[0].audioTrack.setVolume(0);
+        this.rtc.localAudioTrack.setVolume(0);
+      }
+    },
+    changeaudio() {
+      this.isaudio = !this.isaudio;
+
+      if (this.isaudio) {
+        this.rtc.localAudioTrack.setVolume(100);
+      } else {
+        this.rtc.localAudioTrack.setVolume(0);
+      }
+    },
+    changevideo() {
+      this.isvideo = !this.isvideo;
+
+      this.rtc.localVideoTrack.setEnabled(this.isvideo);
     },
   },
   beforeRouteLeave(to, from, next) {
