@@ -1,10 +1,10 @@
 <template>
   <!-- 头部 -->
   <div class="baycheck">
+      <pc-header></pc-header>
     <div class="maincheck">
       <div class="view-process">
         <div class="cont">
-          v
           <div class="step2-cont">
             <div class="title_jiance">
               <img src="@/views/pc/double/img/jiance1.png" />
@@ -139,12 +139,17 @@
         </div>
       </div>
     </div>
+
+    <pc-footer></pc-footer>
   </div>
 </template>
 
 <script>
 import AgoraRTC from "agora-rtc-sdk-ng";
+import PcHeader from '../../../../components/common/pc/PcHeader.vue';
+import PcFooter from '../../../../components/common/pc/PcFooter.vue';
 export default {
+  components: { PcHeader,PcFooter },
   props: {},
   data() {
     return {
@@ -181,14 +186,14 @@ export default {
   },
   methods: {
     toWait() {
-      if (this.audioDevice == "" || this.audioDevice == null) {
-        this.$message("暂无可用的音频设备");
-        return;
-      }
-      if (this.videoDevice == "" || this.videoDevice == null) {
-        this.$message("暂无可用的视频设备");
-        return;
-      }
+      // if (this.audioDevice == "" || this.audioDevice == null) {
+      //   this.$message("暂无可用的音频设备");
+      //   return;
+      // }
+      // if (this.videoDevice == "" || this.videoDevice == null) {
+      //   this.$message("暂无可用的视频设备");
+      //   return;
+      // }
       localStorage.setItem("selectedMicrophoneId", this.audioDevice);
       localStorage.setItem("selectedCameraId", this.videoDevice);
       this.$router.push({
