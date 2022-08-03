@@ -135,8 +135,8 @@
             </div>
           </ScrollLoader>
         </div>
-        <input type="text" v-model="content" />
-        <input type="button" value="发送" @click="send()" />
+        <input type="text" v-model="content" v-if="isclose" />
+        <input type="button" value="发送" @click="send()" v-if="isclose" />
       </div>
       <div class="room-cont">
         <div class="room-cont-left" v-if="role == 'teach'">
@@ -337,6 +337,7 @@
           </div>
         </div>
       </div>
+      <button @click="changeclose()">开关</button>
     </div>
   </div>
 </template>
@@ -407,6 +408,7 @@ export default {
       options: {},
       status: "loading",
       waitstatus: null,
+      isclose: true,
     };
   },
   props: {
@@ -480,9 +482,7 @@ export default {
           }
         });
       } catch (error) {
-        console.error(
-          'wxChat: props "getUpperData" must return a promise object!'
-        );
+        this.$message("获取记录失败");
       }
       me.isUpperLaoding = false;
     },
@@ -648,7 +648,6 @@ export default {
           //如果之前是正在面试的状态 直接进入面试间
           if (msgData.data.status == "involve") {
             clearInterval(that.timer);
-            localStorage.setItem("start_time", new Date().getTime());
             that.agoraStartCall();
             var timerr = setInterval(function () {
               if (that.ud != "") {
@@ -689,6 +688,8 @@ export default {
         ];
         this.dataArray = this.dataArray.concat(msg); //直接合并
         this.$refs.child.scrollToBottom();
+      } else if (msgData.type == "close") {
+        this.isclose = msgData.data.close;
       }
     },
 
@@ -870,9 +871,9 @@ export default {
      * @LastEditTime: 2022-07-28 19:49:41
      * @FilePath: /doubleview/src/views/pc/double/video/video_wait.vue
      */
-    calFaceTime() {
+    calFaceTime(uid) {
       var that = this;
-      var start_time = localStorage.getItem("start_time");
+      var start_time = localStorage.getItem(that.gd + "_" + uid + "_time");
       var current_time = new Date().getTime();
       var time = current_time - start_time;
       var t = that.timeFormat(time);
@@ -894,7 +895,6 @@ export default {
       var that = this;
       clearInterval(that.timer);
       this.websocketsend({ type: "involve", ud: this.ud, gd: this.gd });
-      localStorage.setItem("start_time", new Date().getTime());
       this.agoraStartCall();
       var timerr = setInterval(function () {
         if (that.ud != "") {
@@ -920,6 +920,7 @@ export default {
         ud: that.ud,
         gd: that.gd,
         role: that.role,
+        face_time: that.faceTime,
       });
       if (that.role == "stu") {
         that.recoder("end");
@@ -939,6 +940,8 @@ export default {
      * @FilePath: /doubleview/src/views/pc/double/video/video_wait.vue
      */
     async agoraStartCall() {
+      this.$AgoraRTC.setLogLevel(2);
+
       var that = this;
       that.status = "room";
       that.open = 0;
@@ -954,10 +957,43 @@ export default {
         codec: "vp8",
       });
 
+      if (that.role == "stu") {
+        // ,
+        var time = localStorage.getItem(that.gd + "_" + that.g_ud + "_time");
+
+        if (time == null) {
+          localStorage.setItem(
+            that.gd + "_" + that.g_ud + "_time",
+            new Date().getTime()
+          );
+        }
+
+        that.faceTimer = setInterval(function () {
+          that.calFaceTime(that.g_ud);
+        }, 1000);
+      }
+
       // 订阅远端用户
       that.rtc.client.on("user-published", async (user, mediaType) => {
         // 开始订阅远端用户。
         await that.rtc.client.subscribe(user, mediaType);
+
+        if (that.role == "teach") {
+          // ,
+          var time = localStorage.getItem(that.gd + "_" + user.uid + "_time");
+
+          if (time == null) {
+            localStorage.setItem(
+              that.gd + "_" + user.uid + "_time",
+              new Date().getTime()
+            );
+          }
+
+          that.faceTimer = setInterval(function () {
+            that.calFaceTime(user.uid);
+          }, 1000);
+        }
+
         // 表示本次订阅的是视频。
         if (mediaType === "video") {
           // 订阅完成后，从 `user` 中获取远端视频轨道对象。
@@ -980,16 +1016,11 @@ export default {
       // 监听声音的方法
       this.rtc.client.enableAudioVolumeIndicator();
       this.rtc.client.on("volume-indicator", (volumes) => {
-        volumes.forEach((volume, index) => {
-          console.log(`${index} UID ${volume.uid} Level ${volume.level}`);
-        });
+        volumes.forEach((volume, index) => {});
       });
 
       // 订阅当前网络质量
       that.rtc.client.on("network-quality", (stats) => {
-        console.log(stats);
-        console.log("downlinkNetworkQuality", stats.downlinkNetworkQuality);
-        console.log("uplinkNetworkQuality", stats.uplinkNetworkQuality);
         if (stats.downlinkNetworkQuality <= stats.uplinkNetworkQuality) {
           that.selfQa = stats.uplinkNetworkQuality;
         } else {
@@ -998,8 +1029,7 @@ export default {
       });
 
       // 加入目标频道
-      console.log(that.options);
-      const id = await that.rtc.client.join(
+      await that.rtc.client.join(
         that.options.appId,
         that.options.channel,
         that.options.token,
@@ -1021,10 +1051,6 @@ export default {
       localVideoTrack.play("box");
       that.rtc.localAudioTrack = localAudioTrack;
       that.rtc.localVideoTrack = localVideoTrack;
-      // 计时
-      this.faceTimer = setInterval(function () {
-        that.calFaceTime();
-      }, 1000);
 
       // 判断是否有session
       if (sessionStorage.getItem("mkfon")) {
@@ -1104,6 +1130,14 @@ export default {
 
     invite(ud, gd) {
       this.websocketsend({ type: "invite", ud: ud, gd: gd });
+    },
+    changeclose() {
+      this.websocketsend({
+        type: "close",
+        close: !this.isclose,
+        ud: this.ud,
+        gd: this.gd,
+      });
     },
   },
   beforeRouteLeave(to, from, next) {
