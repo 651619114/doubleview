@@ -334,8 +334,10 @@ import "swiper/css/swiper.css";
 import "@/assets/pc/video/css/video_chat.css";
 import ScrollLoader from "../../../../components/chat/scroll.vue";
 import { reqGroupHistory } from "../../../../apis/get_group_history.api";
+import { changeNote } from "../../../../apis/change_note.api";
 import { getToken } from "../../../../apis/get_token.api";
 import Swiper from "swiper";
+
 // 面试间修改的样式
 import "@/assets/pc/video/css/inter_room.css";
 
@@ -399,7 +401,8 @@ export default {
       isclose: true,
       isaudio: true,
       isallaudio: true,
-      isvideo: true
+      isvideo: true,
+      stuid: null,
     };
   },
   props: {
@@ -970,6 +973,7 @@ export default {
         await that.rtc.client.subscribe(user, mediaType);
 
         if (that.role == "teach") {
+          that.stuid = user.uid;
           // ,
           var time = localStorage.getItem(that.gd + "_" + user.uid + "_time");
 
@@ -1124,6 +1128,8 @@ export default {
     invite(ud, gd) {
       this.websocketsend({ type: "invite", ud: ud, gd: gd });
     },
+
+    //老师控制所有人的评论区开关
     changeclose() {
       this.websocketsend({
         type: "close",
@@ -1133,18 +1139,23 @@ export default {
       });
     },
 
+    //老师控制所有人的音频开关
     changeallaudio() {
-      this.isallaudio = !this.isallaudio;
-      const remoteUser = this.rtc.client.remoteUsers;
+      if (this.role == "teach") {
+        this.isallaudio = !this.isallaudio;
+        const remoteUser = this.rtc.client.remoteUsers;
 
-      if (this.isallaudio) {
-        remoteUser[0].audioTrack.setVolume(100);
-        this.rtc.localAudioTrack.setVolume(100);
-      } else {
-        remoteUser[0].audioTrack.setVolume(0);
-        this.rtc.localAudioTrack.setVolume(0);
+        if (this.isallaudio) {
+          remoteUser[0].audioTrack.setVolume(100);
+          this.rtc.localAudioTrack.setVolume(100);
+        } else {
+          remoteUser[0].audioTrack.setVolume(0);
+          this.rtc.localAudioTrack.setVolume(0);
+        }
       }
     },
+
+    //控制自己的音频开关
     changeaudio() {
       this.isaudio = !this.isaudio;
 
@@ -1154,12 +1165,32 @@ export default {
         this.rtc.localAudioTrack.setVolume(0);
       }
     },
+
+    //控制自己的视频开关
     changevideo() {
       this.isvideo = !this.isvideo;
 
       this.rtc.localVideoTrack.setEnabled(this.isvideo);
-    }
+    },
+
+    //提交评价接口
+    submit(itw_status, node) {
+      if (this.role == "teach") {
+        changeNote({
+          ud: this.ud,
+          gd: this.gd,
+          stuid: this.stuid,
+          itw_status: itw_status,
+          node: node,
+          format: "json",
+        }).then(() => {
+          this.$message("评价成功!");
+        });
+      }
+    },
   },
+
+  //卸载事件
   beforeRouteLeave(to, from, next) {
     this.stopWs();
     this.agoraLeaveCall();
