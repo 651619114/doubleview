@@ -1,0 +1,104 @@
+.inter_bodys {
+  background: #4d4d4d;
+  margin: 0 auto;
+}
+.inter_header {
+  width: 100%;
+  height: 60px;
+  background: #333333;
+}
+
+.header_title {
+  width: 1710px;
+  margin: 0 auto;
+}
+
+.header_title .db_title {
+  align-items: center;
+  float: left;
+  font-size: 22px;
+  font-weight: 500;
+  color: #d6d6d6;
+  line-height: 55px;
+}
+
+.header_title .db_logo {
+  width: 123px;
+  height: 36px;
+  float: right;
+  margin-top: 12px;
+}
+
+.inter_mid {
+  width: 1710px;
+  margin: 40px auto;
+  background: #4d4d4d;
+}
+
+.inter_biaoti {
+  display: flex;
+  justify-content: start;
+  margin-bottom: 21px;
+}
+.inter_biaoti .p1 {
+  font-size: 20px;
+  font-weight: 500;
+  color: #d6d6d6;
+  line-height: 24px;
+  width: 250px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.inter_biaoti .p2 {
+  font-size: 18px;
+  font-weight: 500;
+  color: #ffa600;
+  line-height: 24px;
+}
+
+.inter_biaoti .btning {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 105px;
+  height: 24px;
+  background: #02be43;
+  font-size: 14px;
+  font-weight: 400;
+  color: #ffffff;
+  line-height: 18px;
+  border-radius: 4px;
+  margin-left: 13px;
+  margin-right: 21px;
+}
+
+.inter_biaoti .btning .btning1 {
+  width: 10px;
+  height: 10px;
+  background: #ffffff;
+  border-radius: 50%;
+}
+
+.btn2 {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.startinter {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 18px;
+  font-weight: 500;
+  color: #02be43;
+  line-height: 18px;
+  align-items: center;
+  margin-top: 14px;
+}
+.startinter img {
+  width: 28px;
+  height: 28px;
+  margin-right: 8px;
+}
