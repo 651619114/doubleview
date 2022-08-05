@@ -210,7 +210,7 @@ export default {
     async agoraGetDevice() {
       var that = this;
       // 获取所有音视频设备
-      AgoraRTC.getDevices(true).then((devices) => {
+      AgoraRTC.getDevices().then((devices) => {
         that.audioDevices = devices.filter(function (device) {
           return device.kind === "audioinput";
         });

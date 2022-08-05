@@ -1,105 +1,14 @@
 <template>
-  <div class="inter_bodys">
-    <!-- 头部 -->
-    <div class="inter_header">
-      <div class="header_title">
-        <div class="db_title">2022届北京大学双选会</div>
-        <div class="db_logo"><img src="@/views/pc/double/img/logo.png" /></div>
+  <div>
+    <div class="load" v-if="status == 'loading'">连接服务器中...</div>
+
+    <div v-else-if="status == 'wait'" class="wait-page">
+      <div class="left">
+        <div v-if="waitstatus == 'shelve'">已拒绝面试</div>
+        <div v-else-if="waitstatus == 'end'">面试已结束</div>
+        <div v-else>等待老师邀请</div>
       </div>
-    </div>
-    <div class="inter_mid">
-      <div class="load" v-if="status == 'loading'">连接服务器中...</div>
-      <div v-else-if="status == 'wait'" class="wait-page">
-        <div class="left">
-          <div v-if="waitstatus == 'shelve'">已拒绝面试</div>
-          <div v-else-if="waitstatus == 'end'">面试已结束</div>
-          <div v-else>等待老师邀请</div>
-        </div>
-        <div class="wxchat-container" :style="{ backgroundColor: wrapBg }">
-          <div
-            class="window"
-            id="window-view-container"
-            :style="{ maxHeight: maxHeight + 'px', width: width + 'px' }"
-          >
-            <div class="loading" v-if="dataArray.length == 0">
-              <div style="margin-top: 300px">
-                <div>加载中...</div>
-              </div>
-            </div>
-
-            <ScrollLoader
-              ref="child"
-              :minHeight="minHeight"
-              @scroll-to-top="refresh"
-              class="container-main"
-              :style="{ maxHeight: maxHeight - 50 + 'px' }"
-            >
-              <div class="message">
-                <ul class="chat-list">
-                  <li
-                    v-for="message in dataArray"
-                    :key="message.id"
-                    :class="
-                      message.direction == 2 ? 'an-move-right' : 'an-move-left'
-                    "
-                  >
-                    <p class="time"><span v-text="message.time"></span></p>
-
-                    <div
-                      :class="'main' + (message.direction == 2 ? ' self' : '')"
-                    >
-                      <img class="avatar" width="45" height="45" :src="img1" />
-                      <!-- 文本 -->
-                      <div class="text">
-                        <span v-text="message.content"></span>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </ScrollLoader>
-          </div>
-          <input type="text" v-model="content" />
-          <input type="button" value="发送" @click="send()" />
-        </div>
-
-        <div class="right">
-          <div v-if="waitstatus == 'end'">
-            PS：面试已结束。如非正常结束面试，请联系老师进行二次面试。
-          </div>
-          <div v-if="waitstatus == 'shelve'">
-            PS：已拒绝面试，如果想继续面试请与面试官联系
-          </div>
-          <div v-else>
-            <div class="line1">
-              前面还有<span>{{ position }}</span
-              >人等候
-            </div>
-            <div class="line1">
-              预计<span>{{ waitTime }}</span
-              >分钟后面试
-            </div>
-          </div>
-        </div>
-        <div class="openbg" :class="open ? 'active' : ''">
-          <div class="open open1" @click.stop="stopClick($event)">
-            <div class="title">进入面试房间</div>
-            <div class="desc">
-              PS：请在30秒内点击确定，如30秒内未点击确定，可以点击重新进入，点击重新进入后将在面试列表最后一位。点击退出将退出考场。
-            </div>
-            <div class="open-btn">
-              <div class="confirm" @click="tohouse()">
-                {{ entertimer }}
-              </div>
-              <div @click="tohome()">取消</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div v-else-if="status == 'room'" class="test-room">
-        <!-- 聊天 -->
-        <!-- <div class="wxchat-container" :style="{ backgroundColor: wrapBg }">
+      <div class="wxchat-container" :style="{ backgroundColor: wrapBg }">
         <div
           class="window"
           id="window-view-container"
@@ -132,9 +41,91 @@
                   <div
                     :class="'main' + (message.direction == 2 ? ' self' : '')"
                   >
-                    <img class="avatar" width="45" height="45" :src="img1" /> -->
-        <!-- 文本 -->
-        <!-- <div class="text">
+                    <img class="avatar" width="45" height="45" :src="img1" />
+                    <!-- 文本 -->
+                    <div class="text">
+                      <span v-text="message.content"></span>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </ScrollLoader>
+        </div>
+        <input type="text" v-model="content" />
+        <input type="button" value="发送" @click="send()" />
+      </div>
+
+      <div class="right">
+        <div v-if="waitstatus == 'end'">
+          PS：面试已结束。如非正常结束面试，请联系老师进行二次面试。
+        </div>
+        <div v-if="waitstatus == 'shelve'">
+          PS：已拒绝面试，如果想继续面试请与面试官联系
+        </div>
+        <div v-else>
+          <div class="line1">
+            前面还有<span>{{ position }}</span
+            >人等候
+          </div>
+          <div class="line1">
+            预计<span>{{ waitTime }}</span
+            >分钟后面试
+          </div>
+        </div>
+      </div>
+      <div class="openbg" :class="open ? 'active' : ''">
+        <div class="open open1" @click.stop="stopClick($event)">
+          <div class="title">进入面试房间</div>
+          <div class="desc">
+            PS：请在30秒内点击确定，如30秒内未点击确定，可以点击重新进入，点击重新进入后将在面试列表最后一位。点击退出将退出考场。
+          </div>
+          <div class="open-btn">
+            <div class="confirm" @click="tohouse()">
+              {{ entertimer }}
+            </div>
+            <div @click="tohome()">取消</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div v-else-if="status == 'room'" class="test-room">
+      <!-- <div class="wxchat-container" :style="{ backgroundColor: wrapBg }">
+        <div
+          class="window"
+          id="window-view-container"
+          :style="{ maxHeight: maxHeight + 'px', width: width + 'px' }"
+        >
+          <div class="loading" v-if="dataArray.length == 0">
+            <div style="margin-top: 300px">
+              <div>加载中...</div>
+            </div>
+          </div>
+
+          <ScrollLoader
+            ref="child"
+            :minHeight="minHeight"
+            @scroll-to-top="refresh"
+            class="container-main"
+            :style="{ maxHeight: maxHeight - 50 + 'px' }"
+          >
+            <div class="message">
+              <ul class="chat-list">
+                <li
+                  v-for="message in dataArray"
+                  :key="message.id"
+                  :class="
+                    message.direction == 2 ? 'an-move-right' : 'an-move-left'
+                  "
+                >
+                  <p class="time"><span v-text="message.time"></span></p>
+
+                  <div
+                    :class="'main' + (message.direction == 2 ? ' self' : '')"
+                  >
+                    <img class="avatar" width="45" height="45" :src="img1" />
+                    <div class="text">
                       <span v-text="message.content"></span>
                     </div>
                   </div>
@@ -146,86 +137,73 @@
         <input type="text" v-model="content" v-if="isclose" />
         <input type="button" value="发送" @click="send()" v-if="isclose" />
       </div> -->
-
-        <!-- 面试及等候 -->
-        <div class="room-cont">
-          <div class="room-cont-cont">
-            <div class="inter_biaoti">
-              <p class="p1">
-                白沙黎族自治县教育局12121212112112121121211212112
-              </p>
-              <div class="btning">
-                <div class="btning1"></div>
-                招聘面试中
-              </div>
-              <p class="p2">面试间类型：一对一</p>
+      <div class="room-cont">
+        <div class="room-cont-left" v-if="role == 'teach'">
+          <div v-for="item in stuList" v-bind:key="item.ud">
+            <div class="stu_list">
+              {{ item.un }}<p v-if="item.status == 'invite'">已邀请</p><p v-if="item.status == 'wait'">正在等待</p><p v-if="item.status == 'involve'">正在面试</p><p v-if="item.status == 'end'">已结束</p><p v-if="item.status == 'shelve'">已拒绝</p>
+              <button @click="invite(item.ud, item.gd)">邀请</button>
             </div>
-            <!-- 面试间 -->
-            <div class="room-cont-middle">
-              <div class="box" id="bigbox">
-                <p class="listbg">{{ loading.big }}</p>
-              </div>
-              <div class="btn2">
-                <div class="network-qa">
-                  <div
-                    class="net net1"
-                    :class="
-                      main_teachQa <= 5 && main_teachQa >= 1 ? 'colorgreen' : ''
-                    "
-                  ></div>
-                  <div
-                    class="net net2"
-                    :class="
-                      main_teachQa <= 4 && main_teachQa >= 1 ? 'colorgreen' : ''
-                    "
-                  ></div>
-                  <div
-                    class="net net3"
-                    :class="
-                      main_teachQa <= 3 && main_teachQa >= 1 ? 'colorgreen' : ''
-                    "
-                  ></div>
-                  <div
-                    class="net net4"
-                    :class="
-                      main_teachQa <= 2 && main_teachQa >= 1 ? 'colorgreen' : ''
-                    "
-                  ></div>
-                  <div
-                    class="net net5"
-                    :class="main_teachQa == 1 ? 'colorgreen' : ''"
-                  ></div>
-                </div>
-                <div class="interguan">
-                  <img
-                    v-if="tea_mkf == 1"
-                    src="@/views/pc/double/img/mkfgreen.png"
-                    alt=""
-                  />
-                  <img v-else src="@/views/pc/double/img/mkfgrey.png" alt="" />
-                  <p>面试官</p>
-                </div>
-              </div>
-              <!-- 按钮 -->
-              <div class="btn">
-                <div class="btn-left">
-                  <div class="sxt" @click="agoraCameraSet()">
-                    <img
-                      v-if="sxton"
-                      src="../../../../../static/pc/chat/icon_sxt.png"
-                      alt=""
-                    />
-                    <img
-                      v-else
-                      src="../../../../../static/pc/chat/icon_sxt_off.png"
-                      alt=""
-                    />
-                    <p>摄像头</p>
+          </div>
+        </div>
+        <div class="room-cont-cont">
+          <div class="lists swiper-container">
+            <div class="swiper-wrapper">
+              <div
+                class="list swiper-slide"
+                :class="item.talking ? 'two' : ''"
+                v-for="item in teachList"
+                v-bind:key="item.user_id"
+              >
+                <p class="listbg">{{ item.loading }}</p>
+                <div class="box">
+                  <div class="network-qa">
+                    <div
+                      class="net net1"
+                      :class="
+                        item.quality <= 5 && item.quality >= 1
+                          ? 'colorgreen'
+                          : ''
+                      "
+                    ></div>
+                    <div
+                      class="net net2"
+                      :class="
+                        item.quality <= 4 && item.quality >= 1
+                          ? 'colorgreen'
+                          : ''
+                      "
+                    ></div>
+                    <div
+                      class="net net3"
+                      :class="
+                        item.quality <= 3 && item.quality >= 1
+                          ? 'colorgreen'
+                          : ''
+                      "
+                    ></div>
+                    <div
+                      class="net net4"
+                      :class="
+                        item.quality <= 2 && item.quality >= 1
+                          ? 'colorgreen'
+                          : ''
+                      "
+                    ></div>
+                    <div
+                      class="net net5"
+                      :class="item.quality == 1 ? 'colorgreen' : ''"
+                    ></div>
                   </div>
-                  <div class="mkf" @click="agoraMicrophoneSet()">
+                  <p>
                     <img
-                      v-if="mkfon"
-                      src="../../../../../static/pc/chat/icon_mkf.png"
+                      v-if="item.mkf == 1"
+                      src="../../../../../static/pc/chat/mkf.png"
+                      alt=""
+                    />
+                    <img
+                      v-else-if="item.mkf == 2"
+                      src="../../../../../static/pc/chat/icon_mkf_on.png"
                       alt=""
                     />
                     <img
@@ -233,97 +211,134 @@
                       src="../../../../../static/pc/chat/icon_mkf_off.png"
                       alt=""
                     />
-                    <p>麦克风</p>
-                  </div>
-                  <div class="pmgx">
-                    <img
-                      src="../../../../../static/pc/chat/icon_pingmu.png"
-                      alt=""
-                    />
-                    <p>共享屏幕</p>
-                  </div>
+                  </p>
+                  <span>面试官</span>
                 </div>
-                <div class="time">面试时长：{{ faceTime }}</div>
-                <div class="btn-end">
-                  <div class="phone" @click="stopStu()">
-                    <div class="kuang">
-                      <img src="@/views/pc/double/img/dianhua.png" alt="" />
-                    </div>
-                    <p style="margin-left:5px">挂断</p>
-                  </div>
-                  <div class="close">
-                    <div class="close1">
-                      <img src="@/views/pc/double/img/clase.png" alt="" />
-                    </div>
-                    <p>关闭面试间</p>
-                  </div>
-                </div>
+                <div class="top-box" :id="'teacher_' + item.user_id"></div>
               </div>
-              <!-- 小头像面试 -->
-              <div class="room-cont-right">
-                <div class="item" style="height:">
-                  <div class="box" id="box" ref="mydiv">
-                    <div class="network-qa">
-                      <div
-                        class="net net1"
-                        :class="selfQa <= 5 && selfQa >= 1 ? 'colorgreen' : ''"
-                      ></div>
-                      <div
-                        class="net net2"
-                        :class="selfQa <= 4 && selfQa >= 1 ? 'colorgreen' : ''"
-                      ></div>
-                      <div
-                        class="net net3"
-                        :class="selfQa <= 3 && selfQa >= 1 ? 'colorgreen' : ''"
-                      ></div>
-                      <div
-                        class="net net4"
-                        :class="selfQa <= 2 && selfQa >= 1 ? 'colorgreen' : ''"
-                      ></div>
-                      <div
-                        class="net net5"
-                        :class="selfQa == 1 ? 'colorgreen' : ''"
-                      ></div>
-                    </div>
-                    <div class="interguan">
-                      <img
-                        v-if="tea_mkf == 1"
-                        src="@/views/pc/double/img/mkfgreen.png"
-                        alt=""
-                      />
-                      <img
-                        v-else
-                        src="@/views/pc/double/img/mkfgrey.png"
-                        alt=""
-                      />
-                      <p>张某某</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- 开启面试间 -->
-            <div class="startinter">
-              <img src="@/views/pc/double/img/kaiq.png"/>
-              <p>开启面试间</p>
             </div>
           </div>
-           <div class="room-cont-left" v-if="role == 'teach'">
-            <div v-for="item in stuList" v-bind:key="item.ud">
-              <div class="stu_list">
-                {{ item.un }}-{{ item.status }}
-                <button @click="invite(item.ud, item.gd)">邀请</button>
+          <div class="room-cont-middle">
+            <div class="box" id="bigbox">
+              <div class="network-qa">
+                <div
+                  class="net net1"
+                  :class="
+                    main_teachQa <= 5 && main_teachQa >= 1 ? 'colorgreen' : ''
+                  "
+                ></div>
+                <div
+                  class="net net2"
+                  :class="
+                    main_teachQa <= 4 && main_teachQa >= 1 ? 'colorgreen' : ''
+                  "
+                ></div>
+                <div
+                  class="net net3"
+                  :class="
+                    main_teachQa <= 3 && main_teachQa >= 1 ? 'colorgreen' : ''
+                  "
+                ></div>
+                <div
+                  class="net net4"
+                  :class="
+                    main_teachQa <= 2 && main_teachQa >= 1 ? 'colorgreen' : ''
+                  "
+                ></div>
+                <div
+                  class="net net5"
+                  :class="main_teachQa == 1 ? 'colorgreen' : ''"
+                ></div>
+              </div>
+              <p>
+                <!-- <img
+                  v-if="tea_mkf == 1"
+                  src="../../../../../static/pc/chat/icon_mkf.png"
+                  alt=""
+                />
+                <img
+                  v-else
+                  src="../../../../../static/pc/chat/icon_mkf_off.png"
+                  alt=""
+                /> -->
+              </p>
+            </div>
+          </div>
+          <div class="btn">
+            <div class="btn-left">
+              <div class="sxt" @click="agoraCameraSet()">
+                <img
+                  v-if="sxton"
+                  src="../../../../../static/pc/chat/icon_sxt.png"
+                  alt=""
+                />
+                <img
+                  v-else
+                  src="../../../../../static/pc/chat/icon_sxt_off.png"
+                  alt=""
+                />
+                <p>摄像头</p>
+              </div>
+              <div class="mkf" @click="agoraMicrophoneSet()">
+                <img
+                  v-if="mkfon"
+                  src="../../../../../static/pc/chat/icon_mkf.png"
+                  alt=""
+                />
+                <img
+                  v-else
+                  src="../../../../../static/pc/chat/icon_mkf_off.png"
+                  alt=""
+                />
+                <p>麦克风</p>
+              </div>
+              <!-- <div class="pmgx">
+          <img src="../../../../../static/pc/chat/icon_pingmu.png" alt="" />
+          <p>共享屏幕</p>
+        </div> -->
+            </div>
+            <div class="phone" @click="stopStu()">
+              <div class="kuang">
+                <img src="../../../../../static/pc/chat/phone.png" alt="" />
+              </div>
+              <p>挂断</p>
+            </div>
+            <div class="time">面试时长：{{ faceTime }}</div>
+          </div>
+        </div>
+        <div class="room-cont-right">
+          <div class="item">
+            <div class="box" id="box" ref="mydiv">
+              <div class="network-qa">
+                <div
+                  class="net net1"
+                  :class="selfQa <= 5 && selfQa >= 1 ? 'colorgreen' : ''"
+                ></div>
+                <div
+                  class="net net2"
+                  :class="selfQa <= 4 && selfQa >= 1 ? 'colorgreen' : ''"
+                ></div>
+                <div
+                  class="net net3"
+                  :class="selfQa <= 3 && selfQa >= 1 ? 'colorgreen' : ''"
+                ></div>
+                <div
+                  class="net net4"
+                  :class="selfQa <= 2 && selfQa >= 1 ? 'colorgreen' : ''"
+                ></div>
+                <div
+                  class="net net5"
+                  :class="selfQa == 1 ? 'colorgreen' : ''"
+                ></div>
               </div>
             </div>
           </div>
         </div>
-
-        
-        <!-- <button @click="changeclose()">聊天开关</button>
-        <button @click="changeallaudio()">全局静音开关</button>
-        <button @click="changeaudio()">静音开关</button>
-        <button @click="changevideo()">视频开关</button> -->
       </div>
+      <button @click="changeclose()">聊天开关</button>
+      <button @click="changeallaudio()">全局静音开关</button>
+      <button @click="changeaudio()">静音开关</button>
+      <button @click="changevideo()">视频开关</button>
     </div>
   </div>
 </template>
@@ -337,13 +352,11 @@ import { reqGroupHistory } from "../../../../apis/get_group_history.api";
 import { changeNote } from "../../../../apis/change_note.api";
 import { getToken } from "../../../../apis/get_token.api";
 import Swiper from "swiper";
-
-// 面试间修改的样式
-import "@/assets/pc/video/css/inter_room.css";
+//
 
 export default {
   components: {
-    ScrollLoader
+    ScrollLoader,
   },
   data() {
     return {
@@ -362,7 +375,7 @@ export default {
       rtc: {
         client: null,
         localAudioTrack: null,
-        localVideoTrack: null
+        localVideoTrack: null,
       },
       teachList: {},
       position: 0,
@@ -408,19 +421,19 @@ export default {
   props: {
     width: {
       type: Number,
-      default: 450
+      default: 450,
     },
     wrapBg: {
       type: String,
-      default: "#efefef"
+      default: "#efefef",
     },
     maxHeight: {
       type: Number,
-      default: 400
-    }
+      default: 400,
+    },
   },
   created() {
-    window.addEventListener("beforeunload", e => this.closeWebsocket(e));
+    window.addEventListener("beforeunload", (e) => this.closeWebsocket(e));
   },
   mounted() {
     //先初始化ws 初始化之后调用token 并关闭加载页面
@@ -434,7 +447,7 @@ export default {
       this.$alert(cont, "", {
         confirmButtonText: "确定",
         center: true,
-        customClass: "scene-dialog"
+        customClass: "scene-dialog",
       }).then(() => {
         that.$router.go(0);
       });
@@ -464,8 +477,8 @@ export default {
           page: me.page,
           ud: me.ud,
           gd: me.gd,
-          format: "json"
-        }).then(d => {
+          format: "json",
+        }).then((d) => {
           if (d.data.data.length == 0) {
             me.isRefreshedAll = true;
             done(true);
@@ -495,8 +508,8 @@ export default {
       await getToken({
         ud: this.g_ud,
         gd: this.gd,
-        format: "json"
-      }).then(d => {
+        format: "json",
+      }).then((d) => {
         console.log(d);
 
         if (d.code == "1000") {
@@ -540,7 +553,7 @@ export default {
         type: "interview",
         gd: this.gd,
         ud: this.ud,
-        name: this.name
+        name: this.name,
       });
     },
 
@@ -601,15 +614,15 @@ export default {
         //如果是面试官 uid前拼接1001 g_ud是agora用的id
         this.g_ud = parseInt("1001" + this.ud);
         this.role = "teach";
-        this.getAgoraToken().then(d => {
+        this.getAgoraToken().then((d) => {
           //此时已经拿到token  通过token 走agora的初始化
           //获取聊天记录
           reqGroupHistory({
             page: this.page,
             ud: this.ud,
             gd: this.gd,
-            format: "json"
-          }).then(d => {
+            format: "json",
+          }).then((d) => {
             this.dataArray = d.data.data.concat(this.dataArray); //倒序合并
             this.page = d.data.current_page + 1;
             this.status = "room";
@@ -626,15 +639,15 @@ export default {
         //如果是面试官 uid前拼接1001 g_ud是agora用的id
         this.g_ud = parseInt("1002" + this.ud);
         this.role = "stu";
-        this.getAgoraToken().then(d => {
+        this.getAgoraToken().then((d) => {
           //此时已经拿到token  通过token 获取历史记录
           //获取聊天记录
           reqGroupHistory({
             page: this.page,
             ud: this.ud,
             gd: this.gd,
-            format: "json"
-          }).then(d => {
+            format: "json",
+          }).then((d) => {
             this.dataArray = d.data.data.concat(this.dataArray); //倒序合并
             this.page = d.data.current_page + 1;
           });
@@ -643,7 +656,7 @@ export default {
           if (msgData.data.status == "involve") {
             clearInterval(that.timer);
             that.agoraStartCall();
-            var timerr = setInterval(function() {
+            var timerr = setInterval(function () {
               if (that.ud != "") {
                 that.recoder("start");
                 clearInterval(timerr);
@@ -666,9 +679,9 @@ export default {
         if (this.role == "stu") {
           this.$alert(msgData.data.msg, "提示", {
             confirmButtonText: "确定",
-            callback: action => {
+            callback: (action) => {
               window.location.href = "http://127.0.0.1:8080/";
-            }
+            },
           });
         }
       } else if (msgData.type == "groupPush") {
@@ -677,8 +690,8 @@ export default {
             direction: msgData.ud == this.ud ? 2 : 1, //为2表示微信主人发出的消息，1表示联系人
             id: msgData.time, //根据这个来排序消息
             content: msgData.content, //当type为1时这里是文本消息，当type2为2时这里要存放图片地址；后续会支持语音的显示
-            ctime: new Date().toLocaleString() //显示当前消息的发送时间
-          }
+            ctime: new Date().toLocaleString(), //显示当前消息的发送时间
+          },
         ];
         this.dataArray = this.dataArray.concat(msg); //直接合并
         this.$refs.child.scrollToBottom();
@@ -732,7 +745,7 @@ export default {
       var self = this;
       self.timeoutObj && clearTimeout(self.timeoutObj);
       self.serverTimeoutObj && clearTimeout(self.serverTimeoutObj);
-      self.timeoutObj = setTimeout(function() {
+      self.timeoutObj = setTimeout(function () {
         //这里发送一个心跳，后端收到后，返回一个心跳消息，
         if (self.websock.readyState == 1) {
           //如果连接正常
@@ -741,7 +754,7 @@ export default {
           //否则重连
           self.reconnect();
         }
-        self.serverTimeoutObj = setTimeout(function() {
+        self.serverTimeoutObj = setTimeout(function () {
           //超时关闭
           self.websock.close();
         }, self.timeout);
@@ -780,7 +793,7 @@ export default {
         content: this.content,
         gd: this.gd,
         is_group: 1,
-        ud: this.ud
+        ud: this.ud,
       });
     },
 
@@ -788,7 +801,7 @@ export default {
       new Swiper(".swiper-container", {
         slidesPerView: "auto",
         observer: true,
-        observeParents: true
+        observeParents: true,
       });
     },
 
@@ -806,7 +819,7 @@ export default {
         return false;
       }
       let time = this.time;
-      that.timer = setInterval(function() {
+      that.timer = setInterval(function () {
         time--;
         that.entertimer = "确定（ " + time + " ）";
         if (time <= 0) {
@@ -890,7 +903,7 @@ export default {
       clearInterval(that.timer);
       this.websocketsend({ type: "involve", ud: this.ud, gd: this.gd });
       this.agoraStartCall();
-      var timerr = setInterval(function() {
+      var timerr = setInterval(function () {
         if (that.ud != "") {
           that.recoder("start");
           clearInterval(timerr);
@@ -914,7 +927,7 @@ export default {
         ud: that.ud,
         gd: that.gd,
         role: that.role,
-        face_time: that.faceTime
+        face_time: that.faceTime,
       });
       if (that.role == "stu") {
         that.recoder("end");
@@ -934,7 +947,7 @@ export default {
      * @FilePath: /doubleview/src/views/pc/double/video/video_wait.vue
      */
     async agoraStartCall() {
-      this.$AgoraRTC.setLogLevel(2);
+      // this.$AgoraRTC.setLogLevel(2);
 
       var that = this;
       that.status = "room";
@@ -942,13 +955,13 @@ export default {
       that.options = {
         appId: that.app_id,
         channel: that.gd,
-        token: that.room_token
+        token: that.room_token,
       };
 
       //创建声网客户端
       that.rtc.client = that.$AgoraRTC.createClient({
         mode: "rtc",
-        codec: "vp8"
+        codec: "vp8",
       });
 
       if (that.role == "stu") {
@@ -962,7 +975,7 @@ export default {
           );
         }
 
-        that.faceTimer = setInterval(function() {
+        that.faceTimer = setInterval(function () {
           that.calFaceTime(that.g_ud);
         }, 1000);
       }
@@ -981,7 +994,7 @@ export default {
             );
           }
 
-          that.faceTimer = setInterval(function() {
+          that.faceTimer = setInterval(function (res) {
             that.calFaceTime(user.uid);
           }, 1000);
         }
@@ -1022,12 +1035,12 @@ export default {
 
       // 监听声音的方法
       this.rtc.client.enableAudioVolumeIndicator();
-      this.rtc.client.on("volume-indicator", volumes => {
+      this.rtc.client.on("volume-indicator", (volumes) => {
         volumes.forEach((volume, index) => {});
       });
 
       // 订阅当前网络质量
-      that.rtc.client.on("network-quality", stats => {
+      that.rtc.client.on("network-quality", (stats) => {
         if (stats.downlinkNetworkQuality <= stats.uplinkNetworkQuality) {
           that.selfQa = stats.uplinkNetworkQuality;
         } else {
@@ -1045,16 +1058,14 @@ export default {
 
       // 创建并发布本地音视频轨道
       //TODO::如果没有获取默认设备  后面加
-      const [
-        localAudioTrack,
-        localVideoTrack
-      ] = await that.$AgoraRTC.createMicrophoneAndCameraTracks(
-        {
-          cameraId: localStorage.getItem("selectedCameraId"),
-          encoderConfig: "360p_1"
-        },
-        { microphoneId: localStorage.getItem("selectedMicrophoneId") }
-      );
+      const [localAudioTrack, localVideoTrack] =
+        await that.$AgoraRTC.createMicrophoneAndCameraTracks(
+          {
+            cameraId: localStorage.getItem("selectedCameraId"),
+            encoderConfig: "360p_1",
+          },
+          { microphoneId: localStorage.getItem("selectedMicrophoneId") }
+        );
 
       await that.rtc.client.publish([localAudioTrack, localVideoTrack]);
       localVideoTrack.play("box");
@@ -1100,7 +1111,7 @@ export default {
       that.rtc.localVideoTrack.close();
 
       // 遍历远端用户。
-      that.rtc.client.remoteUsers.forEach(user => {
+      that.rtc.client.remoteUsers.forEach((user) => {
         // 销毁动态创建的 DIV 节点。
         const playerContainer = document.getElementById("box");
         playerContainer && playerContainer.remove();
@@ -1124,13 +1135,13 @@ export default {
       const params = {
         act: status,
         channel: that.gd,
-        uid: that.ud
+        uid: that.ud,
       };
       await axios.get(url, {
-        params: params
+        params: params,
       });
     },
-    closeWebsocket: e => {
+    closeWebsocket: (e) => {
       if (this.websock) {
         this.lockReconnect = true;
         this.websock.close();
@@ -1143,12 +1154,14 @@ export default {
 
     //老师控制所有人的评论区开关
     changeclose() {
-      this.websocketsend({
-        type: "close",
-        close: !this.isclose,
-        ud: this.ud,
-        gd: this.gd
-      });
+      if (this.role == "teach") {
+        this.websocketsend({
+          type: "close",
+          close: !this.isclose,
+          ud: this.ud,
+          gd: this.gd,
+        });
+      }
     },
 
     //老师控制所有人的音频开关
@@ -1212,7 +1225,7 @@ export default {
 
   beforeDestroy() {
     //卸载事件
-    window.removeEventListener("beforeunload", e => this.closeWebsocket(e));
-  }
+    window.removeEventListener("beforeunload", (e) => this.closeWebsocket(e));
+  },
 };
 </script>
