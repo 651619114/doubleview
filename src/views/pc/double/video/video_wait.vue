@@ -980,8 +980,11 @@ export default {
         }, 1000);
       }
 
-      // 用户加入时初始化时间
-      that.rtc.client.on("user-joined", async (user) => {
+      // 订阅远端用户
+      that.rtc.client.on("user-published", async (user, mediaType) => {
+        // 开始订阅远端用户。
+        await that.rtc.client.subscribe(user, mediaType);
+
         if (that.role == "teach") {
           that.stuid = user.uid;
           // ,
@@ -998,12 +1001,6 @@ export default {
             that.calFaceTime(user.uid);
           }, 1000);
         }
-      });
-
-      // 订阅远端用户
-      that.rtc.client.on("user-published", async (user, mediaType) => {
-        // 开始订阅远端用户。
-        await that.rtc.client.subscribe(user, mediaType);
 
         // 表示本次订阅的是视频。
         if (mediaType === "video") {
@@ -1021,15 +1018,6 @@ export default {
           // 订阅完成后，从 `user` 中获取远端音频轨道对象。
           const remoteAudioTrack = user.audioTrack;
           remoteAudioTrack.play();
-        }
-      });
-
-      // 离开的时候重置时间
-      that.rtc.client.on("user-left", async (user, reason) => {
-
-        if (that.role == "teach") {
-          clearInterval(that.faceTimer);
-          that.faceTime = '00:00:00';
         }
       });
 
