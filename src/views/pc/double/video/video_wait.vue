@@ -98,6 +98,7 @@
       </div>
 
       <div v-else-if="status == 'room'" class="test-room">
+      <!-- 聊天 -->
         <!-- <div class="wxchat-container" :style="{ backgroundColor: wrapBg }">
         <div
           class="window"
@@ -167,9 +168,8 @@
                 <button @click="invite(item.ud, item.gd)">邀请</button>
               </div>
             </div>
-          <!-- </div> -->
-          <div class="room-cont-middle">
-            <div class="lists swiper-container">
+            <div class="room-cont-middle">
+              <!-- <div class="lists swiper-container">
               <div class="swiper-wrapper">
                 <div
                   class="list swiper-slide"
@@ -239,129 +239,178 @@
                   <div class="top-box" :id="'teacher_' + item.user_id"></div>
                 </div>
               </div>
-            </div>
-            <div class="room-cont-middle">
-              <div class="box" id="bigbox">
-                <div class="network-qa">
-                  <div
-                    class="net net1"
-                    :class="
-                      main_teachQa <= 5 && main_teachQa >= 1 ? 'colorgreen' : ''
-                    "
-                  ></div>
-                  <div
-                    class="net net2"
-                    :class="
-                      main_teachQa <= 4 && main_teachQa >= 1 ? 'colorgreen' : ''
-                    "
-                  ></div>
-                  <div
-                    class="net net3"
-                    :class="
-                      main_teachQa <= 3 && main_teachQa >= 1 ? 'colorgreen' : ''
-                    "
-                  ></div>
-                  <div
-                    class="net net4"
-                    :class="
-                      main_teachQa <= 2 && main_teachQa >= 1 ? 'colorgreen' : ''
-                    "
-                  ></div>
-                  <div
-                    class="net net5"
-                    :class="main_teachQa == 1 ? 'colorgreen' : ''"
-                  ></div>
+            </div> -->
+                <div class="box" id="bigbox">
+                  <p class="listbg">{{ loading.big }}</p>
                 </div>
-                <p>
-                  <!-- <img
-                  v-if="tea_mkf == 1"
-                  src="../../../../../static/pc/chat/icon_mkf.png"
-                  alt=""
-                />
-                <img
-                  v-else
-                  src="../../../../../static/pc/chat/icon_mkf_off.png"
-                  alt=""
-                /> -->
-                </p>
+                <div class="btn2">
+                  <div class="network-qa">
+                    <div
+                      class="net net1"
+                      :class="
+                        main_teachQa <= 5 && main_teachQa >= 1
+                          ? 'colorgreen'
+                          : ''
+                      "
+                    ></div>
+                    <div
+                      class="net net2"
+                      :class="
+                        main_teachQa <= 4 && main_teachQa >= 1
+                          ? 'colorgreen'
+                          : ''
+                      "
+                    ></div>
+                    <div
+                      class="net net3"
+                      :class="
+                        main_teachQa <= 3 && main_teachQa >= 1
+                          ? 'colorgreen'
+                          : ''
+                      "
+                    ></div>
+                    <div
+                      class="net net4"
+                      :class="
+                        main_teachQa <= 2 && main_teachQa >= 1
+                          ? 'colorgreen'
+                          : ''
+                      "
+                    ></div>
+                    <div
+                      class="net net5"
+                      :class="main_teachQa == 1 ? 'colorgreen' : ''"
+                    ></div>
+                  </div>
+                  <div class="interguan">
+                    <img
+                      v-if="tea_mkf == 1"
+                      src="@/views/pc/double/img/mkfgreen.png"
+                      alt=""
+                    />
+                    <img
+                      v-else
+                      src="@/views/pc/double/img/mkfgrey.png"
+                      alt=""
+                    />
+                    <p>面试官</p>
+                </div>
+              </div>
+              <div class="btn">
+                <div class="btn-left">
+                  <div class="sxt" @click="agoraCameraSet()">
+                    <img
+                      v-if="sxton"
+                      src="../../../../../static/pc/chat/icon_sxt.png"
+                      alt=""
+                    />
+                    <img
+                      v-else
+                      src="../../../../../static/pc/chat/icon_sxt_off.png"
+                      alt=""
+                    />
+                    <p>摄像头</p>
+                  </div>
+                  <div class="mkf" @click="agoraMicrophoneSet()">
+                    <img
+                      v-if="mkfon"
+                      src="../../../../../static/pc/chat/icon_mkf.png"
+                      alt=""
+                    />
+                    <img
+                      v-else
+                      src="../../../../../static/pc/chat/icon_mkf_off.png"
+                      alt=""
+                    />
+                    <p>麦克风</p>
+                  </div>
+                    <div class="pmgx">
+                    <img
+                      src="../../../../../static/pc/chat/icon_pingmu.png"
+                      alt=""
+                    />
+                    <p>共享屏幕</p>
+                  </div>
+                </div>
+               <div class="time">面试时长：{{ faceTime }}</div>
+                <div class="btn-end">
+                  <div class="phone" @click="stopStu()">
+                    <div class="kuang">
+                      <img src="@/views/pc/double/img/dianhua.png" alt="" />
+                    </div>
+                    <p style="margin-left:5px">挂断</p>
+                  </div>
+                  <div class="close">
+                    <div class="close1">
+                      <img src="@/views/pc/double/img/clase.png" alt="" />
+                    </div>
+                    <p>关闭面试间</p>
+                  </div>
               </div>
             </div>
-            <div class="btn">
-              <div class="btn-left">
-                <div class="sxt" @click="agoraCameraSet()">
-                  <img
-                    v-if="sxton"
-                    src="../../../../../static/pc/chat/icon_sxt.png"
-                    alt=""
-                  />
-                  <img
-                    v-else
-                    src="../../../../../static/pc/chat/icon_sxt_off.png"
-                    alt=""
-                  />
-                  <p>摄像头</p>
+            <!-- 小头像面试 -->
+            <div class="room-cont-right">
+              <div class="item">
+                <div class="box" id="box" ref="mydiv">
+                  <div class="network-qa">
+                    <div
+                      class="net net1"
+                      :class="selfQa <= 5 && selfQa >= 1 ? 'colorgreen' : ''"
+                    ></div>
+                    <div
+                      class="net net2"
+                      :class="selfQa <= 4 && selfQa >= 1 ? 'colorgreen' : ''"
+                    ></div>
+                    <div
+                      class="net net3"
+                      :class="selfQa <= 3 && selfQa >= 1 ? 'colorgreen' : ''"
+                    ></div>
+                    <div
+                      class="net net4"
+                      :class="selfQa <= 2 && selfQa >= 1 ? 'colorgreen' : ''"
+                    ></div>
+                    <div
+                      class="net net5"
+                      :class="selfQa == 1 ? 'colorgreen' : ''"
+                    ></div>
+                  </div>
+                     <div class="interguan">
+                      <img
+                        v-if="tea_mkf == 1"
+                        src="@/views/pc/double/img/mkfgreen.png"
+                        alt=""
+                      />
+                      <img
+                        v-else
+                        src="@/views/pc/double/img/mkfgrey.png"
+                        alt=""
+                      />
+                      <p>张某某</p>
+                    </div>
                 </div>
-                <div class="mkf" @click="agoraMicrophoneSet()">
-                  <img
-                    v-if="mkfon"
-                    src="../../../../../static/pc/chat/icon_mkf.png"
-                    alt=""
-                  />
-                  <img
-                    v-else
-                    src="../../../../../static/pc/chat/icon_mkf_off.png"
-                    alt=""
-                  />
-                  <p>麦克风</p>
-                </div>
-                <!-- <div class="pmgx">
-          <img src="../../../../../static/pc/chat/icon_pingmu.png" alt="" />
-          <p>共享屏幕</p>
-        </div> -->
               </div>
-              <div class="phone" @click="stopStu()">
-                <div class="kuang">
-                  <img src="../../../../../static/pc/chat/phone.png" alt="" />
-                </div>
-                <p>挂断</p>
-              </div>
-              <div class="time">面试时长：{{ faceTime }}</div>
             </div>
           </div>
-          <div class="room-cont-right">
-            <div class="item">
-              <div class="box" id="box" ref="mydiv">
-                <div class="network-qa">
-                  <div
-                    class="net net1"
-                    :class="selfQa <= 5 && selfQa >= 1 ? 'colorgreen' : ''"
-                  ></div>
-                  <div
-                    class="net net2"
-                    :class="selfQa <= 4 && selfQa >= 1 ? 'colorgreen' : ''"
-                  ></div>
-                  <div
-                    class="net net3"
-                    :class="selfQa <= 3 && selfQa >= 1 ? 'colorgreen' : ''"
-                  ></div>
-                  <div
-                    class="net net4"
-                    :class="selfQa <= 2 && selfQa >= 1 ? 'colorgreen' : ''"
-                  ></div>
-                  <div
-                    class="net net5"
-                    :class="selfQa == 1 ? 'colorgreen' : ''"
-                  ></div>
-                </div>
+              <!-- 开启面试间 -->
+            <div class="startinter">
+              <img src="@/views/pc/double/img/kaiq.png"/>
+              <p>开启面试间</p>
+            </div>
+        </div>
+               <div class="room-cont-left" v-if="role == 'teach'">
+            <div v-for="item in stuList" v-bind:key="item.ud">
+              <div class="stu_list">
+                {{ item.un }}-{{ item.status }}
+                <button @click="invite(item.ud, item.gd)">邀请</button>
               </div>
             </div>
           </div>
         </div>
-        </div>
-        <button @click="changeclose()">聊天开关</button>
+
+        <!-- <button @click="changeclose()">聊天开关</button>
         <button @click="changeallaudio()">全局静音开关</button>
         <button @click="changeaudio()">静音开关</button>
-        <button @click="changevideo()">视频开关</button>
+        <button @click="changevideo()">视频开关</button> -->
       </div>
     </div>
   </div>
@@ -382,7 +431,7 @@ import Swiper from "swiper";
 
 export default {
   components: {
-    ScrollLoader,
+    ScrollLoader
   },
   data() {
     return {
@@ -401,7 +450,7 @@ export default {
       rtc: {
         client: null,
         localAudioTrack: null,
-        localVideoTrack: null,
+        localVideoTrack: null
       },
       teachList: {},
       position: 0,
@@ -441,25 +490,25 @@ export default {
       isaudio: true,
       isallaudio: true,
       isvideo: true,
-      stuid: null,
+      stuid: null
     };
   },
   props: {
     width: {
       type: Number,
-      default: 450,
+      default: 450
     },
     wrapBg: {
       type: String,
-      default: "#efefef",
+      default: "#efefef"
     },
     maxHeight: {
       type: Number,
-      default: 400,
-    },
+      default: 400
+    }
   },
   created() {
-    window.addEventListener("beforeunload", (e) => this.closeWebsocket(e));
+    window.addEventListener("beforeunload", e => this.closeWebsocket(e));
   },
   mounted() {
     //先初始化ws 初始化之后调用token 并关闭加载页面
@@ -473,7 +522,7 @@ export default {
       this.$alert(cont, "", {
         confirmButtonText: "确定",
         center: true,
-        customClass: "scene-dialog",
+        customClass: "scene-dialog"
       }).then(() => {
         that.$router.go(0);
       });
@@ -503,8 +552,8 @@ export default {
           page: me.page,
           ud: me.ud,
           gd: me.gd,
-          format: "json",
-        }).then((d) => {
+          format: "json"
+        }).then(d => {
           if (d.data.data.length == 0) {
             me.isRefreshedAll = true;
             done(true);
@@ -534,8 +583,8 @@ export default {
       await getToken({
         ud: this.g_ud,
         gd: this.gd,
-        format: "json",
-      }).then((d) => {
+        format: "json"
+      }).then(d => {
         console.log(d);
 
         if (d.code == "1000") {
@@ -579,7 +628,7 @@ export default {
         type: "interview",
         gd: this.gd,
         ud: this.ud,
-        name: this.name,
+        name: this.name
       });
     },
 
@@ -640,22 +689,22 @@ export default {
         //如果是面试官 uid前拼接1001 g_ud是agora用的id
         this.g_ud = parseInt("1001" + this.ud);
         this.role = "teach";
-        this.getAgoraToken().then((d) => {
+        this.getAgoraToken().then(d => {
           //此时已经拿到token  通过token 走agora的初始化
           //获取聊天记录
           reqGroupHistory({
             page: this.page,
             ud: this.ud,
             gd: this.gd,
-            format: "json",
-          }).then((d) => {
+            format: "json"
+          }).then(d => {
             console.log(33333333);
 
             getInfo({
               ud: this.ud,
               gd: this.gd,
-              format: "json",
-            }).then((info) => {
+              format: "json"
+            }).then(info => {
               console.log(12312313);
               console.log(info);
               this.status = "room";
@@ -675,15 +724,15 @@ export default {
         //如果是面试官 uid前拼接1001 g_ud是agora用的id
         this.g_ud = parseInt("1002" + this.ud);
         this.role = "stu";
-        this.getAgoraToken().then((d) => {
+        this.getAgoraToken().then(d => {
           //此时已经拿到token  通过token 获取历史记录
           //获取聊天记录
           reqGroupHistory({
             page: this.page,
             ud: this.ud,
             gd: this.gd,
-            format: "json",
-          }).then((d) => {
+            format: "json"
+          }).then(d => {
             this.dataArray = d.data.data.concat(this.dataArray); //倒序合并
             this.page = d.data.current_page + 1;
           });
@@ -692,7 +741,7 @@ export default {
           if (msgData.data.status == "involve") {
             clearInterval(that.timer);
             that.agoraStartCall();
-            var timerr = setInterval(function () {
+            var timerr = setInterval(function() {
               if (that.ud != "") {
                 that.recoder("start");
                 clearInterval(timerr);
@@ -715,9 +764,9 @@ export default {
         if (this.role == "stu") {
           this.$alert(msgData.data.msg, "提示", {
             confirmButtonText: "确定",
-            callback: (action) => {
+            callback: action => {
               window.location.href = "http://127.0.0.1:8080/";
-            },
+            }
           });
         }
       } else if (msgData.type == "groupPush") {
@@ -726,8 +775,8 @@ export default {
             direction: msgData.ud == this.ud ? 2 : 1, //为2表示微信主人发出的消息，1表示联系人
             id: msgData.time, //根据这个来排序消息
             content: msgData.content, //当type为1时这里是文本消息，当type2为2时这里要存放图片地址；后续会支持语音的显示
-            ctime: new Date().toLocaleString(), //显示当前消息的发送时间
-          },
+            ctime: new Date().toLocaleString() //显示当前消息的发送时间
+          }
         ];
         this.dataArray = this.dataArray.concat(msg); //直接合并
         this.$refs.child.scrollToBottom();
@@ -781,7 +830,7 @@ export default {
       var self = this;
       self.timeoutObj && clearTimeout(self.timeoutObj);
       self.serverTimeoutObj && clearTimeout(self.serverTimeoutObj);
-      self.timeoutObj = setTimeout(function () {
+      self.timeoutObj = setTimeout(function() {
         //这里发送一个心跳，后端收到后，返回一个心跳消息，
         if (self.websock.readyState == 1) {
           //如果连接正常
@@ -790,7 +839,7 @@ export default {
           //否则重连
           self.reconnect();
         }
-        self.serverTimeoutObj = setTimeout(function () {
+        self.serverTimeoutObj = setTimeout(function() {
           //超时关闭
           self.websock.close();
         }, self.timeout);
@@ -829,7 +878,7 @@ export default {
         content: this.content,
         gd: this.gd,
         is_group: 1,
-        ud: this.ud,
+        ud: this.ud
       });
     },
 
@@ -837,7 +886,7 @@ export default {
       new Swiper(".swiper-container", {
         slidesPerView: "auto",
         observer: true,
-        observeParents: true,
+        observeParents: true
       });
     },
 
@@ -855,7 +904,7 @@ export default {
         return false;
       }
       let time = this.time;
-      that.timer = setInterval(function () {
+      that.timer = setInterval(function() {
         time--;
         that.entertimer = "确定（ " + time + " ）";
         if (time <= 0) {
@@ -939,7 +988,7 @@ export default {
       clearInterval(that.timer);
       this.websocketsend({ type: "involve", ud: this.ud, gd: this.gd });
       this.agoraStartCall();
-      var timerr = setInterval(function () {
+      var timerr = setInterval(function() {
         if (that.ud != "") {
           that.recoder("start");
           clearInterval(timerr);
@@ -963,7 +1012,7 @@ export default {
         ud: that.ud,
         gd: that.gd,
         role: that.role,
-        face_time: that.faceTime,
+        face_time: that.faceTime
       });
       if (that.role == "stu") {
         that.recoder("end");
@@ -991,13 +1040,13 @@ export default {
       that.options = {
         appId: that.app_id,
         channel: that.gd,
-        token: that.room_token,
+        token: that.room_token
       };
 
       //创建声网客户端
       that.rtc.client = that.$AgoraRTC.createClient({
         mode: "rtc",
-        codec: "vp8",
+        codec: "vp8"
       });
 
       if (that.role == "stu") {
@@ -1011,7 +1060,7 @@ export default {
           );
         }
 
-        that.faceTimer = setInterval(function () {
+        that.faceTimer = setInterval(function() {
           that.calFaceTime(that.g_ud);
         }, 1000);
       }
@@ -1033,7 +1082,7 @@ export default {
             );
           }
 
-          that.faceTimer = setInterval(function (res) {
+          that.faceTimer = setInterval(function(res) {
             that.calFaceTime(user.uid);
           }, 1000);
         }
@@ -1059,12 +1108,12 @@ export default {
 
       // 监听声音的方法
       this.rtc.client.enableAudioVolumeIndicator();
-      this.rtc.client.on("volume-indicator", (volumes) => {
+      this.rtc.client.on("volume-indicator", volumes => {
         volumes.forEach((volume, index) => {});
       });
 
       // 订阅当前网络质量
-      that.rtc.client.on("network-quality", (stats) => {
+      that.rtc.client.on("network-quality", stats => {
         if (stats.downlinkNetworkQuality <= stats.uplinkNetworkQuality) {
           that.selfQa = stats.uplinkNetworkQuality;
         } else {
@@ -1082,14 +1131,16 @@ export default {
 
       // 创建并发布本地音视频轨道
       //TODO::如果没有获取默认设备  后面加
-      const [localAudioTrack, localVideoTrack] =
-        await that.$AgoraRTC.createMicrophoneAndCameraTracks(
-          {
-            cameraId: localStorage.getItem("selectedCameraId"),
-            encoderConfig: "360p_1",
-          },
-          { microphoneId: localStorage.getItem("selectedMicrophoneId") }
-        );
+      const [
+        localAudioTrack,
+        localVideoTrack
+      ] = await that.$AgoraRTC.createMicrophoneAndCameraTracks(
+        {
+          cameraId: localStorage.getItem("selectedCameraId"),
+          encoderConfig: "360p_1"
+        },
+        { microphoneId: localStorage.getItem("selectedMicrophoneId") }
+      );
 
       await that.rtc.client.publish([localAudioTrack, localVideoTrack]);
       localVideoTrack.play("box");
@@ -1135,7 +1186,7 @@ export default {
       that.rtc.localVideoTrack.close();
 
       // 遍历远端用户。
-      that.rtc.client.remoteUsers.forEach((user) => {
+      that.rtc.client.remoteUsers.forEach(user => {
         // 销毁动态创建的 DIV 节点。
         const playerContainer = document.getElementById("box");
         playerContainer && playerContainer.remove();
@@ -1159,13 +1210,13 @@ export default {
       const params = {
         act: status,
         channel: that.gd,
-        uid: that.ud,
+        uid: that.ud
       };
       await axios.get(url, {
-        params: params,
+        params: params
       });
     },
-    closeWebsocket: (e) => {
+    closeWebsocket: e => {
       if (this.websock) {
         this.lockReconnect = true;
         this.websock.close();
@@ -1183,7 +1234,7 @@ export default {
           type: "close",
           close: !this.isclose,
           ud: this.ud,
-          gd: this.gd,
+          gd: this.gd
         });
       }
     },
@@ -1231,12 +1282,12 @@ export default {
           stuid: this.stuid,
           itw_status: itw_status,
           node: node,
-          format: "json",
+          format: "json"
         }).then(() => {
           this.$message("评价成功!");
         });
       }
-    },
+    }
   },
 
   //卸载事件
@@ -1249,7 +1300,7 @@ export default {
 
   beforeDestroy() {
     //卸载事件
-    window.removeEventListener("beforeunload", (e) => this.closeWebsocket(e));
-  },
+    window.removeEventListener("beforeunload", e => this.closeWebsocket(e));
+  }
 };
 </script>
