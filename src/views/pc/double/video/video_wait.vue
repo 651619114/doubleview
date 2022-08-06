@@ -141,7 +141,12 @@
         <div class="room-cont-left" v-if="role == 'teach'">
           <div v-for="item in stuList" v-bind:key="item.ud">
             <div class="stu_list">
-              {{ item.un }}<p v-if="item.status == 'invite'">已邀请</p><p v-if="item.status == 'wait'">正在等待</p><p v-if="item.status == 'involve'">正在面试</p><p v-if="item.status == 'end'">已结束</p><p v-if="item.status == 'shelve'">已拒绝</p>
+              {{ item.un }}
+              <p v-if="item.status == 'invite'">已邀请</p>
+              <p v-if="item.status == 'wait'">正在等待</p>
+              <p v-if="item.status == 'involve'">正在面试</p>
+              <p v-if="item.status == 'end'">已结束</p>
+              <p v-if="item.status == 'shelve'">已拒绝</p>
               <button @click="invite(item.ud, item.gd)">邀请</button>
             </div>
           </div>
@@ -351,6 +356,7 @@ import ScrollLoader from "../../../../components/chat/scroll.vue";
 import { reqGroupHistory } from "../../../../apis/get_group_history.api";
 import { changeNote } from "../../../../apis/change_note.api";
 import { getToken } from "../../../../apis/get_token.api";
+import { getInfo } from "../../../../apis/get_info.api";
 import Swiper from "swiper";
 //
 
@@ -623,12 +629,22 @@ export default {
             gd: this.gd,
             format: "json",
           }).then((d) => {
+              console.log(33333333)
+
+            getInfo({
+              ud: this.ud,
+              gd: this.gd,
+              format: "json",
+            }).then((info) => {
+              console.log(12312313)
+              console.log(info)
+              this.status = "room";
+              if (this.room_token != "") {
+                this.agoraStartCall();
+              }
+            });
             this.dataArray = d.data.data.concat(this.dataArray); //倒序合并
             this.page = d.data.current_page + 1;
-            this.status = "room";
-            if (this.room_token != "") {
-              this.agoraStartCall();
-            }
           });
         });
       } else if (msgData.type == "stu") {

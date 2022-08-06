@@ -170,7 +170,6 @@ class Request {
                             const statusCode = response.response.code
                             this.handleErrorStatus(statusCode)
                         } else {
-                            console.log(response.message)
                         }
                         reject(response)
                     })
