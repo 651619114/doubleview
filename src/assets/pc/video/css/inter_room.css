@@ -102,3 +102,324 @@
   height: 28px;
   margin-right: 8px;
 }
+
+/* 右边的标题 */
+.inter_biaoti_right {
+  display: flex;
+  justify-content: end;
+  margin-bottom: 21px;
+}
+.inter_biaoti_right .p1 {
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: #d6d6d6;
+  line-height: 24px;
+  display: flex;
+}
+
+.inter_biaoti_right .p1 img {
+  width: 16px;
+  height: 16px;
+}
+
+.inter_biaoti_right .btning {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  margin-left: 13px;
+  color: #ff7d27;
+  text-decoration: underline;
+}
+
+.room_rigth {
+  width: 470px;
+  margin-left: 11px;
+}
+
+/* 面试人数 */
+.inter_num {
+  height: 256px;
+  background: #616161;
+}
+
+.inter_num_title {
+  height: 49px;
+  background: #787878;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 500;
+  color: #ffffff;
+  line-height: 25px;
+  align-items: center;
+}
+
+/* 面试状态通过，不通过，待定 */
+.inter_status {
+  padding-top: 10px;
+  padding-bottom: 11px;
+  border-top: 1px solid #8a8a8a;
+  justify-content: space-around;
+  display: flex;
+}
+.inter_status .inter_status_st {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+  cursor: pointer;
+}
+.inter_status .inter_status_st img {
+  width: 42px;
+  height: 42px;
+}
+.st1 {
+  color: #1df166;
+}
+.st2 {
+  color: #ffd100;
+}
+
+.st3 {
+  color: #cdcdcd;
+}
+
+.st4 {
+  color: #ffffff;
+}
+
+/* 面试人的详情 */
+.inter_detail {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 21px;
+  color: #e6e6e6;
+  border-bottom: 1px solid #8a8a8a;
+  padding-top: 11px;
+  padding-bottom: 10px;
+}
+.detail1 {
+  width: 8px;
+  height: 8px;
+  background: #1df166;
+  border-radius: 50%;
+  margin-right: 5px;
+  margin-left: 10px;
+}
+.detail2 {
+  display: flex;
+  align-items: center;
+}
+.detail2 p {
+  color: #1df166;
+}
+.textarea {
+  height: 97px;
+  resize: vertical;
+  overflow: auto;
+  font-size: 14px;
+  font-weight: 400;
+  color: #e6e6e6;
+  line-height: 20px;
+  text-indent: 24px;
+  padding-top: 16px;
+  cursor: pointer;
+}
+
+.textarea:empty:before {
+  color: #ffffff;
+  content: attr(placeholder);
+}
+
+/* 面试间等待 */
+.inter_cont {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 500;
+  color: #ffffff;
+  line-height: 22px;
+  height: 46px;
+  background: #787878;
+  padding: 11px 24px 10px;
+}
+
+.inter_cont_cont1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 400;
+  color: #e6e6e6;
+  line-height: 20px;
+  border-bottom: 1px solid #808080;
+  padding: 11px 24px 10px;
+}
+.cont1 {
+  display: flex;
+  justify-content: center;
+}
+.cont2 {
+  width: 88px;
+  height: 26px;
+  border-radius: 4px;
+  border: 1px solid #3de075;
+  color: #3de075;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}
+.el-switch {
+  margin-left: 10px;
+}
+
+/* .inter_cont_cont2 li {
+  display: flex;
+  justify-content: space-between;
+  padding: 11px 24px 0px 24px;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 400;
+  color: #dbdbdb;
+  line-height: 20px;
+  text-align: right;
+}
+.inter_cont_cont2 li .inter_invite {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 51px;
+  height: 22px;
+  border-radius: 4px;
+  border: 1px solid #3de075;
+  color: #3de075;
+}
+
+.inter_cont_cont2 li .inter_invite1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 51px;
+  height: 22px;
+  border-radius: 4px;
+  border: 1px solid #3de075;
+  color: #3de075;
+} */
+
+.inter_cont_cont2 {
+  padding-top: 11px;
+  padding-left: 24px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #dbdbdb;
+  line-height: 20px;
+}
+.inter_cont_cont2 .inter_invite {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 51px;
+  height: 22px;
+  border-radius: 4px;
+  border: 1px solid #3de075;
+  color: #3de075;
+  cursor: pointer;
+}
+
+.inter_cont_cont2 .inter_invite1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 51px;
+  height: 22px;
+  border-radius: 4px;
+  border: 1px solid #3de075;
+  color: #3de075;
+}
+
+.invite1 {
+  display: flex;
+  align-items: center;
+  color: #3de075;
+  cursor: pointer;
+}
+.invite1 img {
+  width: 16px;
+  height: 16px;
+  margin-left: 10px;
+}
+
+.invite2 {
+  display: flex;
+  align-items: center;
+  color: #cdcdcd;
+  cursor: pointer;
+}
+
+.invite2 img {
+  width: 16px;
+  height: 16px;
+  margin-left: 10px;
+}
+
+.dt1 {
+  margin-right: 5px;
+  margin-left: 10px;
+}
+
+/* 聊天的发送 */
+.liaotian_input {
+  width: 470px;
+  height: 54px;
+  background: #454545;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.liaotian_input img{
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+}
+.send_btn {
+  width: 60px;
+  height: 28px;
+  border-radius: 4px;
+  border: 1px solid #3de075;
+  font-size: 14px;
+  font-weight: 400;
+  color: #43bb6c;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+.send_input {
+  width: 251px;
+height: 34px;
+border-radius: 4px;
+border: 1px solid #979797;
+font-size: 14px;
+font-weight: 400;
+color: #D4D4D4;
+line-height: 20px;
+padding-left: 12px;
+cursor: pointer;
+}
+
+
+.container-main[data-v-686658de] {
+  background: #5E5E5E !important;
+}
