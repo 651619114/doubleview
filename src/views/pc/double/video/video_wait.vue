@@ -98,53 +98,6 @@
       </div>
 
       <div v-else-if="status == 'room'" class="test-room">
-      <!-- 聊天 -->
-        <!-- <div class="wxchat-container" :style="{ backgroundColor: wrapBg }">
-        <div
-          class="window"
-          id="window-view-container"
-          :style="{ maxHeight: maxHeight + 'px', width: width + 'px' }"
-        >
-          <div class="loading" v-if="dataArray.length == 0">
-            <div style="margin-top: 300px">
-              <div>加载中...</div>
-            </div>
-          </div>
-
-          <ScrollLoader
-            ref="child"
-            :minHeight="minHeight"
-            @scroll-to-top="refresh"
-            class="container-main"
-            :style="{ maxHeight: maxHeight - 50 + 'px' }"
-          >
-            <div class="message">
-              <ul class="chat-list">
-                <li
-                  v-for="message in dataArray"
-                  :key="message.id"
-                  :class="
-                    message.direction == 2 ? 'an-move-right' : 'an-move-left'
-                  "
-                >
-                  <p class="time"><span v-text="message.time"></span></p>
-
-                  <div
-                    :class="'main' + (message.direction == 2 ? ' self' : '')"
-                  >
-                    <img class="avatar" width="45" height="45" :src="img1" />
-                    <div class="text">
-                      <span v-text="message.content"></span>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </ScrollLoader>
-        </div>
-        <input type="text" v-model="content" v-if="isclose" />
-        <input type="button" value="发送" @click="send()" v-if="isclose" />
-      </div> -->
         <div class="room-cont">
           <div class="room-cont-cont" v-if="role == 'teach'">
             <div class="inter_biaoti">
@@ -229,60 +182,48 @@
                 </div>
               </div>
             </div> -->
-                <div class="box" id="bigbox">
-                  <p class="listbg">{{ loading.big }}</p>
+              <div class="box" id="bigbox">
+                <p class="listbg">{{ loading.big }}</p>
+              </div>
+              <div class="btn2">
+                <div class="network-qa">
+                  <div
+                    class="net net1"
+                    :class="
+                      main_teachQa <= 5 && main_teachQa >= 1 ? 'colorgreen' : ''
+                    "
+                  ></div>
+                  <div
+                    class="net net2"
+                    :class="
+                      main_teachQa <= 4 && main_teachQa >= 1 ? 'colorgreen' : ''
+                    "
+                  ></div>
+                  <div
+                    class="net net3"
+                    :class="
+                      main_teachQa <= 3 && main_teachQa >= 1 ? 'colorgreen' : ''
+                    "
+                  ></div>
+                  <div
+                    class="net net4"
+                    :class="
+                      main_teachQa <= 2 && main_teachQa >= 1 ? 'colorgreen' : ''
+                    "
+                  ></div>
+                  <div
+                    class="net net5"
+                    :class="main_teachQa == 1 ? 'colorgreen' : ''"
+                  ></div>
                 </div>
-                <div class="btn2">
-                  <div class="network-qa">
-                    <div
-                      class="net net1"
-                      :class="
-                        main_teachQa <= 5 && main_teachQa >= 1
-                          ? 'colorgreen'
-                          : ''
-                      "
-                    ></div>
-                    <div
-                      class="net net2"
-                      :class="
-                        main_teachQa <= 4 && main_teachQa >= 1
-                          ? 'colorgreen'
-                          : ''
-                      "
-                    ></div>
-                    <div
-                      class="net net3"
-                      :class="
-                        main_teachQa <= 3 && main_teachQa >= 1
-                          ? 'colorgreen'
-                          : ''
-                      "
-                    ></div>
-                    <div
-                      class="net net4"
-                      :class="
-                        main_teachQa <= 2 && main_teachQa >= 1
-                          ? 'colorgreen'
-                          : ''
-                      "
-                    ></div>
-                    <div
-                      class="net net5"
-                      :class="main_teachQa == 1 ? 'colorgreen' : ''"
-                    ></div>
-                  </div>
-                  <div class="interguan">
-                    <img
-                      v-if="tea_mkf == 1"
-                      src="@/views/pc/double/img/mkfgreen.png"
-                      alt=""
-                    />
-                    <img
-                      v-else
-                      src="@/views/pc/double/img/mkfgrey.png"
-                      alt=""
-                    />
-                    <p>面试官</p>
+                <div class="interguan">
+                  <img
+                    v-if="tea_mkf == 1"
+                    src="@/views/pc/double/img/mkfgreen.png"
+                    alt=""
+                  />
+                  <img v-else src="@/views/pc/double/img/mkfgrey.png" alt="" />
+                  <p>面试官</p>
                 </div>
               </div>
               <div class="btn">
@@ -313,7 +254,7 @@
                     />
                     <p>麦克风</p>
                   </div>
-                    <div class="pmgx">
+                  <div class="pmgx">
                     <img
                       src="../../../../../static/pc/chat/icon_pingmu.png"
                       alt=""
@@ -321,7 +262,7 @@
                     <p>共享屏幕</p>
                   </div>
                 </div>
-               <div class="time">面试时长：{{ faceTime }}</div>
+                <div class="time">面试时长：{{ faceTime }}</div>
                 <div class="btn-end">
                   <div class="phone" @click="stopStu()">
                     <div class="kuang">
@@ -335,35 +276,35 @@
                     </div>
                     <p>关闭面试间</p>
                   </div>
+                </div>
               </div>
-            </div>
-            <!-- 小头像面试 -->
-            <div class="room-cont-right">
-              <div class="item">
-                <div class="box" id="box" ref="mydiv">
-                  <div class="network-qa">
-                    <div
-                      class="net net1"
-                      :class="selfQa <= 5 && selfQa >= 1 ? 'colorgreen' : ''"
-                    ></div>
-                    <div
-                      class="net net2"
-                      :class="selfQa <= 4 && selfQa >= 1 ? 'colorgreen' : ''"
-                    ></div>
-                    <div
-                      class="net net3"
-                      :class="selfQa <= 3 && selfQa >= 1 ? 'colorgreen' : ''"
-                    ></div>
-                    <div
-                      class="net net4"
-                      :class="selfQa <= 2 && selfQa >= 1 ? 'colorgreen' : ''"
-                    ></div>
-                    <div
-                      class="net net5"
-                      :class="selfQa == 1 ? 'colorgreen' : ''"
-                    ></div>
-                  </div>
-                     <div class="interguan">
+              <!-- 小头像面试 -->
+              <div class="room-cont-right">
+                <div class="item">
+                  <div class="box" id="box" ref="mydiv">
+                    <div class="network-qa">
+                      <div
+                        class="net net1"
+                        :class="selfQa <= 5 && selfQa >= 1 ? 'colorgreen' : ''"
+                      ></div>
+                      <div
+                        class="net net2"
+                        :class="selfQa <= 4 && selfQa >= 1 ? 'colorgreen' : ''"
+                      ></div>
+                      <div
+                        class="net net3"
+                        :class="selfQa <= 3 && selfQa >= 1 ? 'colorgreen' : ''"
+                      ></div>
+                      <div
+                        class="net net4"
+                        :class="selfQa <= 2 && selfQa >= 1 ? 'colorgreen' : ''"
+                      ></div>
+                      <div
+                        class="net net5"
+                        :class="selfQa == 1 ? 'colorgreen' : ''"
+                      ></div>
+                    </div>
+                    <div class="interguan">
                       <img
                         v-if="tea_mkf == 1"
                         src="@/views/pc/double/img/mkfgreen.png"
@@ -376,26 +317,273 @@
                       />
                       <p>张某某</p>
                     </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-              <!-- 开启面试间 -->
+            <!-- 开启面试间 -->
             <div class="startinter">
-              <img src="@/views/pc/double/img/kaiq.png"/>
+              <img src="@/views/pc/double/img/kaiq.png" />
               <p>开启面试间</p>
             </div>
-        </div>
-               <div class="room-cont-left" v-if="role == 'teach'">
-            <div v-for="item in stuList" v-bind:key="item.ud">
-              <div class="stu_list">
-                {{ item.un }}
-                <p v-if="item.status == 'invite'">已邀请</p>
-                <p v-if="item.status == 'wait'">正在等待</p>
-                <p v-if="item.status == 'involve'">正在面试</p>
-                <p v-if="item.status == 'end'">已结束</p>
-                <p v-if="item.status == 'shelve'">已拒绝</p>
-                <button @click="invite(item.ud, item.gd)">邀请</button>
+          </div>
+
+          <div class="room_rigth">
+            <div class="inter_biaoti_right">
+              <div class="p1">
+                <img
+                  src="@/views/pc/double/img/tanhao.png"
+                />当前正在面试中,若面试过程中发现违规/不实行为,
+              </div>
+              <div class="btning">
+                点此举报
+              </div>
+            </div>
+
+            <!-- 面试人数 -->
+            <div class="inter_num">
+              <div class="inter_num_title">
+                当前面试人数（1）
+              </div>
+              <div>
+                <div class="inter_detail">
+                  <div class="detail2">
+                    王雯雯
+                    <div class="detail1"></div>
+                    <p>面试中</p>
+                  </div>
+                  <p>产品经理</p>
+                  <a class="st4">查看简历</a>
+                </div>
+                <div
+                  class="textarea"
+                  contenteditable="true"
+                  placeholder="请输入面试备注"
+                ></div>
+                <div class="inter_status">
+                  <div class="inter_status_st st1">
+                    <img src="@/views/pc/double/img/pass.png" />通过
+                  </div>
+                  <div class="inter_status_st st2">
+                    <img src="@/views/pc/double/img/dengdaipass.png" />待定
+                  </div>
+                  <div class="inter_status_st st3">
+                    <img src="@/views/pc/double/img/notpass.png" />不通过
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 邀请 -->
+            <div class="room-cont-left" v-if="role == 'teach'">
+              <div class="inter_cont">
+                <p>学生列表</p>
+                <p>30/30</p>
+              </div>
+              <div class="inter_cont_cont1">
+                <div class="cont1">
+                  全员静音
+                  <el-tooltip
+                    :content="'Switch value: ' + value"
+                    placement="top"
+                  >
+                    <el-switch
+                      v-model="value"
+                      active-color="#13ce66"
+                      inactive-color="#ff4949"
+                      active-value="100"
+                      inactive-value="0"
+                    >
+                    </el-switch>
+                  </el-tooltip>
+                </div>
+                <div class="cont2">
+                  <img src="@/views/pc/double/img/touxiang.png" />一键邀请
+                </div>
+              </div>
+              <!-- 面试中 -->
+              <el-row class="inter_cont_cont2">
+                <el-col :span="4"><p>图尔荪阿依</p></el-col>
+                <el-col :span="4">
+                  <div
+                    style=" display: flex;justify-content: center; align-items: center;"
+                  >
+                    <div class="detail1"></div>
+                    <p>面试中</p>
+                  </div>
+                  <!-- <div style="color: #FFA600;">
+                    <p>待面试</p>
+                  </div>
+                  <div style="color: #A4A4A4;">
+                    <p>已结束</p>
+                  </div> -->
+                </el-col>
+                <el-col :span="6"><p>前端开发工程师</p></el-col>
+                <el-col :span="5"
+                  ><a style="color: #FFFFFF;">查看简历</a></el-col
+                >
+                <el-col :span="5">
+                  <div class="inter_invite">邀请</div>
+                  <!-- <div class="invite1">通过<img src="@/views/pc/double/img/beizhu.png" /></div>
+                <div class="invite2">不通过<img src="@/views/pc/double/img/beizhu.png" /></div> -->
+                </el-col>
+              </el-row>
+
+              <div v-for="item in stuList" v-bind:key="item.ud">
+                <div class="stu_list">
+                  {{ item.un }}-{{ item.status }}
+                  <button @click="invite(item.ud, item.gd)">邀请</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 聊天 -->
+            <div class="wxchat-container" :style="{ backgroundColor: wrapBg }">
+              <div class="inter_cont">
+                <p>学生列表</p>
+                <p>30/30</p>
+              </div>
+              <div
+                class="window"
+                id="window-view-container"
+                :style="{ maxHeight: maxHeight + 'px', width: width + 'px' }"
+              >
+                <div class="loading" v-if="dataArray.length == 0">
+                  <div style="margin-top: 300px">
+                    <div>加载中...</div>
+                  </div>
+                </div>
+
+                <ScrollLoader
+                  ref="child"
+                  :minHeight="minHeight"
+                  @scroll-to-top="refresh"
+                  class="container-main"
+                  :style="{ maxHeight: maxHeight - 50 + 'px' }"
+                >
+                  <div class="message">
+                    <ul class="chat-list">
+                      <li
+                        v-for="message in dataArray"
+                        :key="message.id"
+                        :class="
+                          message.direction == 2
+                            ? 'an-move-right'
+                            : 'an-move-left'
+                        "
+                      >
+                        <p class="time"><span v-text="message.time"></span></p>
+
+                        <div
+                          :class="
+                            'main' + (message.direction == 2 ? ' self' : '')
+                          "
+                        >
+                          <img
+                            class="avatar"
+                            width="45"
+                            height="45"
+                            :src="img1"
+                          />
+                          <div class="text">
+                            <span v-text="message.content"></span>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </ScrollLoader>
+              </div>
+              <div class="liaotian_input">
+                <div>
+                  <img src="@/views/pc/double/img/xiaolian.png" style="margin-right: 12px;"/>
+                  <img src="@/views/pc/double/img/tupian.png"/>
+                </div>
+     
+                <input type="text" v-model="content" v-if="isclose"  placeholder="发个互动" class="send_input"/>
+                <input
+                  type="button"
+                  value="发送"
+                  @click="send()"
+                  v-if="isclose"
+                  class="send_btn"
+                />
+              </div>
+            </div>
+          </div>
+
+            <!-- 聊天 -->
+            <div class="wxchat-container" :style="{ backgroundColor: wrapBg }">
+              <div class="inter_cont">
+                <p>学生列表</p>
+                <p>30/30</p>
+              </div>
+              <div
+                class="window"
+                id="window-view-container"
+                :style="{ maxHeight: maxHeight + 'px', width: width + 'px' }"
+              >
+                <div class="loading" v-if="dataArray.length == 0">
+                  <div style="margin-top: 300px">
+                    <div>加载中...</div>
+                  </div>
+                </div>
+
+                <ScrollLoader
+                  ref="child"
+                  :minHeight="minHeight"
+                  @scroll-to-top="refresh"
+                  class="container-main"
+                  :style="{ maxHeight: maxHeight - 50 + 'px' }"
+                >
+                  <div class="message">
+                    <ul class="chat-list">
+                      <li
+                        v-for="message in dataArray"
+                        :key="message.id"
+                        :class="
+                          message.direction == 2
+                            ? 'an-move-right'
+                            : 'an-move-left'
+                        "
+                      >
+                        <p class="time"><span v-text="message.time"></span></p>
+
+                        <div
+                          :class="
+                            'main' + (message.direction == 2 ? ' self' : '')
+                          "
+                        >
+                          <img
+                            class="avatar"
+                            width="45"
+                            height="45"
+                            :src="img1"
+                          />
+                          <div class="text">
+                            <span v-text="message.content"></span>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </ScrollLoader>
+              </div>
+              <div class="liaotian_input">
+                <div>
+                  <img src="@/views/pc/double/img/xiaolian.png" style="margin-right: 12px;"/>
+                  <img src="@/views/pc/double/img/tupian.png"/>
+                </div>
+     
+                <input type="text" v-model="content" v-if="isclose"  placeholder="发个互动" class="send_input"/>
+                <input
+                  type="button"
+                  value="发送"
+                  @click="send()"
+                  v-if="isclose"
+                  class="send_btn"
+                />
+>>>>>>> 9455f21754c4b6e8f30239d5bb8ec39da76f7ee2
               </div>
             </div>
           </div>
@@ -428,6 +616,8 @@ export default {
   },
   data() {
     return {
+      //开关
+      value: "100",
       isLoading: true,
       wait: true,
       gd: this.$route.query.gd.toString(),
@@ -491,7 +681,7 @@ export default {
   props: {
     width: {
       type: Number,
-      default: 450
+      default: 470
     },
     wrapBg: {
       type: String,
@@ -499,7 +689,7 @@ export default {
     },
     maxHeight: {
       type: Number,
-      default: 400
+      default: 275
     }
   },
   created() {
