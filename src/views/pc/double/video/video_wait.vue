@@ -2,7 +2,7 @@
   <div class="inter_bodys">
     <div class="inter_header">
       <div class="header_title">
-        <div class="db_title">2022届北京大学双选会</div>
+        <div class="db_title">{{double_name}}</div>
         <div class="db_logo"><img src="@/views/pc/double/img/logo.png" /></div>
       </div>
     </div>
@@ -149,24 +149,13 @@
           <div class="room-cont-cont" v-if="role == 'teach'">
             <div class="inter_biaoti">
               <p class="p1">
-                白沙黎族自治县教育局12121212112112121121211212112
+                {{unit_name}}
               </p>
               <div class="btning">
                 <div class="btning1"></div>
                 招聘面试中
               </div>
               <p class="p2">面试间类型：一对一</p>
-            </div>
-            <div v-for="item in stuList" v-bind:key="item.ud">
-              <div class="stu_list">
-                {{ item.un }}
-                <p v-if="item.status == 'invite'">已邀请</p>
-                <p v-if="item.status == 'wait'">正在等待</p>
-                <p v-if="item.status == 'involve'">正在面试</p>
-                <p v-if="item.status == 'end'">已结束</p>
-                <p v-if="item.status == 'shelve'">已拒绝</p>
-                <button @click="invite(item.ud, item.gd)">邀请</button>
-              </div>
             </div>
             <div class="room-cont-middle">
               <!-- <div class="lists swiper-container">
@@ -400,7 +389,12 @@
                <div class="room-cont-left" v-if="role == 'teach'">
             <div v-for="item in stuList" v-bind:key="item.ud">
               <div class="stu_list">
-                {{ item.un }}-{{ item.status }}
+                {{ item.un }}
+                <p v-if="item.status == 'invite'">已邀请</p>
+                <p v-if="item.status == 'wait'">正在等待</p>
+                <p v-if="item.status == 'involve'">正在面试</p>
+                <p v-if="item.status == 'end'">已结束</p>
+                <p v-if="item.status == 'shelve'">已拒绝</p>
                 <button @click="invite(item.ud, item.gd)">邀请</button>
               </div>
             </div>
@@ -427,7 +421,6 @@ import { changeNote } from "../../../../apis/change_note.api";
 import { getToken } from "../../../../apis/get_token.api";
 import { getInfo } from "../../../../apis/get_info.api";
 import Swiper from "swiper";
-//
 
 export default {
   components: {
@@ -490,7 +483,9 @@ export default {
       isaudio: true,
       isallaudio: true,
       isvideo: true,
-      stuid: null
+      stuid: null,
+      unit_name: null,
+      double_name:null
     };
   },
   props: {
@@ -705,8 +700,8 @@ export default {
               gd: this.gd,
               format: "json"
             }).then(info => {
-              console.log(12312313);
-              console.log(info);
+              this.double_name = info.data[0].double_rel.double_name
+              this.unit_name = info.data[0].double_rel.unit_name
               this.status = "room";
               if (this.room_token != "") {
                 this.agoraStartCall();
